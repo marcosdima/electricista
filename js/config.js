@@ -32,7 +32,7 @@ const PROPOSAL_CONFIG = {
       title: "Página Web Estática",
       subtitle: "Vidriera profesional online y contacto directo adaptado a celulares",
       icon: "globe",
-      costARS: 270000, // 12h equivalent @ $22,500
+      costARS: 200000, // ~9h equivalent @ $22,500 (precio de lanzamiento redondeado)
       defaultSelected: true,
       summary:
         "Una página web moderna, rápida y adaptable a celulares para mostrar tus especialidades, fotos de trabajos realizados y habilitar contacto directo a tu WhatsApp con mensajes predefinidos.",
@@ -64,22 +64,23 @@ const PROPOSAL_CONFIG = {
       techNote: "Meta incluye 1.000 conversaciones de servicio gratuitas por mes en la API oficial de WhatsApp. Para funcionamiento continuo 24/7 sin depender de tu computadora personal, se asocia al abono con Servidor Cloud.",
     },
     {
-      id: "social-setup",
-      title: "Kit Inicial de Redes Sociales + Automatización",
-      subtitle: "Estructura profesional de perfiles y formato para publicar trabajos",
-      icon: "instagram",
-      costARS: 225000, // 10h equivalent @ $22,500
+      id: "presupuestador-desktop",
+      title: "Presupuestador de Escritorio",
+      subtitle: "Presupuestos formales en PDF desde tu computadora, sin costos de servidor",
+      icon: "calculator",
+      costARS: 270000, // 12h equivalent @ $22,500
       defaultSelected: false,
       summary:
-        "Configuración estética y funcional de tus perfiles comerciales en Instagram y Facebook, junto con un sistema ágil para redactar publicaciones a partir de las fotos que tomás en obra.",
+        "Un programa instalado en tu computadora para armar presupuestos en minutos: cargás los trabajos y materiales, buscás precios actualizados en la web con asistencia y sale un PDF con tu membrete para mandar al cliente.",
       features: [
-        "Optimización de biografías y portadas en Instagram y Facebook.",
-        "Portadas para historias destacadas (Urgencias, Obras, Opiniones, Contacto).",
-        "Pack de 6 plantillas de diseño reutilizables con tus colores y datos.",
-        "Flujo asistido de publicación: enviás la foto de un trabajo con un breve audio descriptivo y recibís el texto formal listo para publicar.",
-        "Guía de buenas prácticas para fotografiar instalaciones y tableros.",
+        "Catálogo editable de materiales y mano de obra que funciona sin conexión.",
+        "Búsqueda asistida de precios en MercadoLibre y casas de materiales con confirmación antes de guardar.",
+        "Plantilla de presupuesto con tu nombre, datos y vigencia generada en PDF.",
+        "Historial de presupuestos enviados y datos de clientes frecuentes.",
+        "Archivo .exe instalable en Windows, sin necesidad de instalar programas extra.",
       ],
-      techNote: "Servicio de configuración inicial por única vez. Puede utilizarse de forma autónoma o combinarse con un plan de gestión mensual.",
+      techNote:
+        "Programa de escritorio: no consume hosting ni abono mensual. Requiere conexión solo para buscar precios en la web y para las actualizaciones del programa.",
     },
   ],
 
@@ -101,6 +102,24 @@ const PROPOSAL_CONFIG = {
         "Enlace directo para enviar a tus clientes y recopilar reseñas de 5 estrellas.",
       ],
       techNote: "Google Maps es una de las fuentes gratuitas con mayor intención de contratación local para oficios técnicos.",
+    },
+    {
+      id: "extra-calendar",
+      title: "Integración con Agenda / Calendario",
+      subtitle: "Turnos programados coordinados desde tu web directo a tu calendario",
+      icon: "calendar",
+      costARS: 67500, // 3h equivalent @ $22,500
+      defaultSelected: false,
+      summary:
+        "Conecto tu página con Google Calendar para que los clientes soliciten día y franja horaria para trabajos no urgentes, y cada pedido quede anotado en tu agenda con confirmación automática, evitando mensajes cruzados por horarios.",
+      features: [
+        "Botón de solicitud de visita en la web con los horarios que tengas libres.",
+        "Sincronización con Google Calendar: tus bloques ocupados no se ofrecen.",
+        "Confirmación automática por WhatsApp con fecha, hora y detalle del trabajo.",
+        "Recordatorio previo a la visita para reducir ausencias.",
+      ],
+      techNote:
+        "Se configura sobre tu propia cuenta de Google con integraciones gratuitas (Google Apps Script o herramienta de turnos con plan free). No requiere servidor propio ni genera costo mensual adicional.",
     },
   ],
 
@@ -181,6 +200,9 @@ const PROPOSAL_CONFIG = {
       title: "Servidor Cloud para Bot 24/7 + Mantenimiento Web",
       badge: "Soporte Completo",
       monthlyARS: 55000,
+      requiresModule: "whatsapp-bot",
+      requiresHint:
+        "Disponible solo si contratás el Asistente Automático de WhatsApp (paso 1).",
       description:
         "Mantengo en funcionamiento el servidor en la nube que gestiona el bot de WhatsApp las 24 horas, superviso la estabilidad de la conexión y me ocupo de los ajustes mensuales en respuestas, tarifas y contenido del sitio web.",
       includes: [
@@ -192,77 +214,82 @@ const PROPOSAL_CONFIG = {
     },
   ],
 
-  // Social Media Ongoing Retainers
-  socialMonthlyOptions: [
+  // Social Media: binary state (sin redes / redes). Choosing "redes" shows a
+  // free, demonstrative menu of possible tasks — no priced retainer tiers.
+  socialOptions: [
     {
       id: "social-none",
-      title: "Sin Gestión Mensual (Administración Propia)",
-      badge: "Sin abono",
+      title: "Sin redes sociales por ahora",
+      badge: "Sin redes",
       monthlyARS: 0,
       defaultSelected: true,
       description:
-        "Gestionás las publicaciones por tu cuenta según tu disponibilidad, utilizando las plantillas y el sistema de redacción asistida sin costo mensual.",
-      includes: ["Manejo autónomo de tus redes", "Sin compromisos mensuales de pago"],
-    },
-    {
-      id: "social-basic",
-      title: "Plan Publicación Semanal (4 posteos + 8 historias por mes)",
-      badge: "Semanal",
-      monthlyARS: 90000,
-      description:
-        "Solo me enviás fotos o videos breves de tus trabajos en la semana por WhatsApp. Me encargo de editarlos, redactar los textos técnicos en tono accesible y programar las publicaciones.",
+        "Te quedás con el manejo propio de tus perfiles según tu disponibilidad, sin abonos mensuales ni obligaciones de publicación.",
       includes: [
-        "1 publicación semanal en formato feed o video breve (4 por mes)",
-        "2 historias semanales de seguimiento (8 por mes)",
-        "Edición gráfica sobre imágenes reales de tus trabajos",
-        "Redacción orientada a destacar profesionalismo y seguridad",
+        "Manejo autónomo de tus perfiles",
+        "Sin compromisos mensuales de pago",
+        "Podés sumar la gestión más adelante cuando quieras",
       ],
     },
     {
-      id: "social-pro",
-      title: "Plan Crecimiento Local (8 posteos + 16 historias + Google Maps)",
-      badge: "Bisemanal",
-      monthlyARS: 157500,
+      id: "social-active",
+      title: "Quiero trabajar las redes sociales",
+      badge: "Demostrativo",
+      monthlyARS: 0,
       description:
-        "Dos publicaciones semanales en Instagram y Facebook, más actualización periódica de novedades en Google Maps para reforzar tu presencia en búsquedas de la zona.",
+        "A modo de demostración y sin costo, te muestro ejemplos de tareas que podrían incluirse en una gestión de redes. Así ves de qué se trata antes de decidir si querés que me ocupe de ellas.",
       includes: [
-        "2 publicaciones semanales con trabajos realizados y recomendaciones técnicas",
-        "Historias continuas con enlace directo a WhatsApp",
-        "Publicación mensual de trabajos y avisos en Google Maps",
-        "Configuración de anuncios locales si decidís invertir en publicidad",
+        "Ideas a modo de ejemplo, sin costo en esta propuesta",
+        "Sin compromiso de publicación ni de abono mensual",
+        "Si querés gestión continua, la cotizamos por separado",
+      ],
+      ideas: [
+        {
+          icon: "layout",
+          title: "Presentación de plantillas",
+          description:
+            "Pack de plantillas reutilizables con tus colores y datos para que las publicaciones se vean consistentes sin diseñar nada.",
+        },
+        {
+          icon: "zap",
+          title: "Automatización de publicaciones",
+          description:
+            "Enviás la foto de un trabajo con un audio breve y el sistema redacta y deja listo el texto para publicar.",
+        },
+        {
+          icon: "instagram",
+          title: "Gestión completa de redes",
+          description:
+            "Planificación, redacción, edición y programación de publicaciones e historias de forma continua.",
+        },
+        {
+          icon: "users",
+          title: "Optimización de perfiles",
+          description:
+            "Biografía, portadas, historias destacadas y datos de contacto ordenados en Instagram y Facebook.",
+        },
       ],
     },
   ],
 
   // Future Roadmap / Non-Budgeted Phase 2 Ideas
+  // De-duplicated: caption automation lives in the social ideas panel, the
+  // Google review link is part of the Google Maps extra, and the two web
+  // pre-quote ideas were merged into a single item.
   futureRoadmap: [
     {
-      title: "Calculadora Web de Pre-Presupuesto",
+      title: "Pre-Cotizador Web Público para tus Clientes",
       tag: "Cotización",
       icon: "calculator",
       description:
-        "Un estimador en tu sitio donde el cliente selecciona los trabajos frecuentes (cambio de térmicas, instalación de tomas, colocación de artefactos) y obtiene un rango de referencia antes de contactarte.",
+        "Una versión web del presupuestador donde tus clientes seleccionan los trabajos habituales (cambio de térmicas, instalación de tomas, colocación de artefactos) y reciben un rango de referencia al instante, antes de escribirte por WhatsApp.",
     },
     {
-      title: "Generador Ágil de Presupuestos en PDF",
-      tag: "Herramienta",
-      icon: "file-text",
+      title: "Mini CRM con Historial de Clientes",
+      tag: "Seguimiento",
+      icon: "users",
       description:
-        "Un formulario ágil en el celular para cargar materiales y mano de obra al terminar una visita técnica, generando un presupuesto formal con membrete y validez en formato PDF.",
-    },
-    {
-      title: "Agenda de Turnos para Trabajos Programados",
-      tag: "Organización",
-      icon: "calendar",
-      description:
-        "Integración con calendario para que visitas no urgentes puedan coordinar día y franja horaria disponible sin intercambios prolongados de mensajes.",
-    },
-    {
-      title: "Solicitud Automática de Reseñas en Google",
-      tag: "Reputación",
-      icon: "star",
-      description:
-        "Envío programado de un mensaje de cortesía al día siguiente de finalizar un trabajo, facilitando el enlace directo para calificar tu servicio en Google Maps.",
+        "Base de datos de clientes, trabajos realizados y presupuestos enviados, con recordatorios de seguimiento para que ninguna consulta quede dormida.",
     },
     {
       title: "Recordatorios de Mantenimiento Periódico",

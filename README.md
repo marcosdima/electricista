@@ -16,8 +16,8 @@ A zero-build, interactive web proposal designed for a small electrical services 
 ├── css/
 │   └── styles.css              # Custom styles, WhatsApp simulator & print rules
 ├── js/
-│   ├── config.js               # Centralized pricing, hours, exchange rate & content config
-│   └── app.js                  # Interactive budget calculator & simulator logic
+│   ├── config.js               # Centralized pricing, content & selection-gating config
+│   └── app.js                  # Interactive budget calculator, demo simulator & gating logic
 ├── docs/
 │   └── PROPOSAL_STRATEGY.md    # Internal breakdown of hours, tech stack & sales strategy
 └── README.md                   # Project documentation
@@ -56,14 +56,18 @@ pricing: {
 ### 1. Main Development Modules (One-Time Investment)
 | Module | Internal Hours | Total (ARS) |
 | :--- | :---: | :---: |
-| **Static Web Page** | `12h` | **$ 270.000 ARS** |
+| **Static Web Page** | `~9h` | **$ 200.000 ARS** |
 | **24/7 WhatsApp Triage Bot + Lead Sheet** | `16h` | **$ 360.000 ARS** |
-| **Social Media Initial Kit + "Photo-to-Post" Automation** | `10h` | **$ 225.000 ARS** |
+| **Desktop Quote Builder (Presupuestador)** | `12h` | **$ 270.000 ARS** |
+
+Module selection is gated: the `mgmt-bot-cloud` management plan is only selectable when
+the Bot module is selected (step 1).
 
 ### 2. Standalone Extras
 | Extra | Internal Hours | Total (ARS) |
 | :--- | :---: | :---: |
 | **Google Maps Setup & Optimization (Google Business Profile)** | `~2.5h` | **$ 55.000 ARS** |
+| **Calendar Integration (Google Calendar booking)** | `~3h` | **$ 67.500 ARS** |
 
 ### 3. Domain / URL Licensing Options
 | Option | Setup Hours / Cost | Annual License (ARS) |
@@ -77,14 +81,28 @@ pricing: {
 | :--- | :---: | :---: |
 | **Self-Managed (Autogestión)** | `0h/mo` | **$ 0 / month** |
 | **Web Maintenance & Support** | `~1.5h/mo` | **$ 35.000 ARS / month** |
-| **24/7 Bot Cloud Server + Web Maintenance** | `~2.5h/mo` | **$ 55.000 ARS / month** |
+| **24/7 Bot Cloud Server + Web Maintenance** *(requires the Bot module)* | `~2.5h/mo` | **$ 55.000 ARS / month** |
 
-### 5. Ongoing Social Media Management (Optional Retainers)
-| Plan | Monthly Hours | Monthly Cost (ARS) |
-| :--- | :---: | :---: |
-| **Self-Managed (No Monthly Retainer)** | `0h/mo` | **$ 0 / month** |
-| **Active Presence (4 Posts + 8 Stories / mo)** | `4h/mo` | **$ 90.000 ARS / month** |
-| **Local Growth (8 Posts + 16 Stories + Google Maps / mo)** | `7h/mo` | **$ 157.500 ARS / month** |
+### 5. Social Media — Binary State (Demonstrative, No Cost)
+| State | What it means | Monthly Cost (ARS) |
+| :--- | :--- | :---: |
+| **Sin redes** (default) | The client manages their own profiles, zero commitment | **$ 0 / month** |
+| **Quiero trabajar las redes** | Shows a demonstrative panel of possible tasks (templates, post automation, full management) — free, no commitment | **$ 0 / month** |
+
+There are deliberately **no priced retainer tiers** in this proposal. Choosing "redes"
+reveals idea cards (template pack, photo+audio caption automation, full ongoing
+management, profile optimization) at no cost, purely as a demonstration. If the client
+later wants continuous management, it is quoted separately at that point.
+
+---
+
+## Selection Gating Rules
+
+Implemented in `isModuleLocked()` / `isManagementLocked()` (`js/app.js`) and declared
+via flags in `js/config.js`:
+
+- `mgmt-bot-cloud` management plan → requires the `whatsapp-bot` module.
+- Deselecting the bot automatically falls back to the default management plan.
 
 ---
 
