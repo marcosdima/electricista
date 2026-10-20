@@ -16,7 +16,7 @@ const PROPOSAL_CONFIG = {
   },
 
   // Base pricing parameters (Internal reference: $15 USD/hr @ $1,500 ARS/USD = $22,500 ARS/hr)
-  // Only clean ARS values are presented to the client without artificial discounts.
+  // No hours or time estimates are displayed to the client; only direct ARS prices.
   pricing: {
     hourlyRateUSD: 15,
     exchangeRateARS: 1500,
@@ -25,72 +25,35 @@ const PROPOSAL_CONFIG = {
     },
   },
 
-  // Presets without marketing gimmicks or fake discounts
-  presets: [
-    {
-      id: "preset-basic",
-      name: "Opción 1: Presencia Web Esencial",
-      badge: "Base Inicial",
-      description: "Página web estática rápida + ficha en Google Maps + dominio propio .com.ar sin costos mensuales de mantenimiento.",
-      modules: ["web-static"],
-      domain: "domain-com-ar",
-      management: "mgmt-self",
-      socialMonthly: "social-none",
-    },
-    {
-      id: "preset-recommended",
-      name: "Opción 2: Web + Bot de WhatsApp",
-      badge: "Recomendado",
-      description: "Página web conectada a un asistente automático de WhatsApp que filtra urgencias y solicita fotos del problema técnico mientras estás en obra.",
-      modules: ["web-static", "whatsapp-bot"],
-      domain: "domain-com-ar",
-      management: "mgmt-bot-cloud",
-      socialMonthly: "social-none",
-    },
-    {
-      id: "preset-full",
-      name: "Opción 3: Web + Bot + Gestión de Redes",
-      badge: "Completo",
-      description: "Página web, asistente de WhatsApp 24/7 y gestión activa de publicaciones en redes sociales para mostrar tus trabajos de forma continua.",
-      modules: ["web-static", "whatsapp-bot", "social-setup"],
-      domain: "domain-com-ar",
-      management: "mgmt-bot-cloud",
-      socialMonthly: "social-basic",
-    },
-  ],
-
-  // One-time development modules
+  // Main development modules (one-time fee)
   developmentModules: [
     {
       id: "web-static",
-      title: "Página Web Estática + Google Maps",
-      subtitle: "Presencia profesional y ubicación en búsquedas locales",
+      title: "Página Web Estática",
+      subtitle: "Vidriera profesional online y contacto directo adaptado a celulares",
       icon: "globe",
-      hours: 14,
-      deliveryTime: "5 a 7 días hábiles",
+      costARS: 270000, // 12h equivalent @ $22,500
       defaultSelected: true,
       summary:
-        "Una página web rápida y optimizada para celulares para que los clientes de tu zona encuentren tus servicios en Google, vean fotos de tus trabajos y se contacten directamente por WhatsApp.",
+        "Una página web moderna, rápida y adaptable a celulares para mostrar tus especialidades, fotos de trabajos realizados y habilitar contacto directo a tu WhatsApp con mensajes predefinidos.",
       features: [
         "Diseño adaptable para celulares y computadoras.",
-        "Botones directos de WhatsApp diferenciados por tipo de consulta.",
-        "Detalle claro de servicios (Urgencias, Instalaciones, Tableros, Certificaciones).",
-        "Galería de fotos de trabajos realizados y datos de matrícula profesional.",
-        "Mapa con zonas de cobertura y preguntas frecuentes de clientes.",
-        "Configuración y optimización de ficha en Google Maps (Google Business Profile).",
+        "Botones directos de WhatsApp diferenciados por tipo de servicio.",
+        "Catálogo de especialidades (Instalaciones, Tableros, Certificaciones).",
+        "Galería de imágenes de trabajos realizados y sellos de confianza.",
+        "Sección de preguntas frecuentes y mapa informativo de cobertura.",
       ],
-      techNote: "Alojada en infraestructura gratuita de alta velocidad (GitHub Pages / Cloudflare). No genera costo fijo de hosting.",
+      techNote: "Alojada en servidores globales gratuitos (GitHub Pages / Cloudflare). No genera ningún costo fijo mensual de hosting.",
     },
     {
       id: "whatsapp-bot",
       title: "Asistente Automático de WhatsApp (24/7)",
       subtitle: "Filtro de consultas y recepción de datos mientras estás trabajando",
       icon: "message-square",
-      hours: 16,
-      deliveryTime: "7 a 10 días hábiles",
+      costARS: 360000, // 16h equivalent @ $22,500
       defaultSelected: false,
       summary:
-        "Responde de forma inmediata a los mensajes entrantes, clasifica el tipo de consulta y solicita la ubicación y fotos del tablero o desperfecto antes de que tomes contacto.",
+        "Responde de forma inmediata a los mensajes entrantes, clasifica si es una urgencia técnica o un presupuesto programado, y solicita barrio y fotografía del tablero o falla antes de que tomes contacto.",
       features: [
         "Menú de opciones: Urgencia eléctrica, Solicitud de presupuesto o Consulta de zonas y tarifas de visita.",
         "Solicitud automática de datos: barrio o dirección, descripción del problema y foto del tablero o instalación.",
@@ -98,15 +61,14 @@ const PROPOSAL_CONFIG = {
         "Registro ordenado en planilla (Google Sheets) con el detalle de cada contacto para seguimiento.",
         "Respuestas predefinidas a preguntas frecuentes de clientes.",
       ],
-      techNote: "Implementado con integración en la nube para funcionamiento continuo e independiente de tu teléfono personal.",
+      techNote: "Meta incluye 1.000 conversaciones de servicio gratuitas por mes en la API oficial de WhatsApp. Para funcionamiento continuo 24/7 sin depender de tu computadora personal, se asocia al abono con Servidor Cloud.",
     },
     {
       id: "social-setup",
       title: "Kit Inicial de Redes Sociales + Automatización",
       subtitle: "Estructura profesional de perfiles y formato para publicar trabajos",
       icon: "instagram",
-      hours: 10,
-      deliveryTime: "5 a 7 días hábiles",
+      costARS: 225000, // 10h equivalent @ $22,500
       defaultSelected: false,
       summary:
         "Configuración estética y funcional de tus perfiles comerciales en Instagram y Facebook, junto con un sistema ágil para redactar publicaciones a partir de las fotos que tomás en obra.",
@@ -117,7 +79,28 @@ const PROPOSAL_CONFIG = {
         "Flujo asistido de publicación: enviás la foto de un trabajo con un breve audio descriptivo y recibís el texto formal listo para publicar.",
         "Guía de buenas prácticas para fotografiar instalaciones y tableros.",
       ],
-      techNote: "Servicio de configuración inicial por única vez. Puede utilizarse de forma autónoma o con abono mensual de gestión.",
+      techNote: "Servicio de configuración inicial por única vez. Puede utilizarse de forma autónoma o combinarse con un plan de gestión mensual.",
+    },
+  ],
+
+  // Standalone Extras / Add-ons (low-cost individual services)
+  extraModules: [
+    {
+      id: "extra-google-maps",
+      title: "Alta y Optimización en Google Maps",
+      subtitle: "Ficha oficial en Google Business Profile para búsquedas de cercanía",
+      icon: "map-pin",
+      costARS: 55000, // ~2.5h equivalent @ $22,500
+      defaultSelected: false,
+      summary:
+        "Configuración y verificación de tu negocio en Google Maps para que las personas que busquen 'electricista cerca de mí' o electricista en tu barrio encuentren tu teléfono, fotos y ubicación.",
+      features: [
+        "Alta o reclamo de ficha oficial en Google Business Profile.",
+        "Configuración de categorías de servicio y zonas de cobertura barrial.",
+        "Carga inicial de fotografías de trabajos reales y datos de contacto.",
+        "Enlace directo para enviar a tus clientes y recopilar reseñas de 5 estrellas.",
+      ],
+      techNote: "Google Maps es una de las fuentes gratuitas con mayor intención de contratación local para oficios técnicos.",
     },
   ],
 
@@ -127,7 +110,7 @@ const PROPOSAL_CONFIG = {
       id: "domain-free",
       title: "Subdominio Gratuito (.github.io / .vercel.app)",
       badge: "Sin costo",
-      setupHours: 0,
+      setupCostARS: 0,
       annualLicenseARS: 0,
       description:
         "Dirección del tipo 'tunombre-electricista.github.io'. No tiene costo inicial ni de mantenimiento. Es adecuada para compartir como enlace en perfiles de redes, estados de WhatsApp o códigos QR.",
@@ -138,8 +121,8 @@ const PROPOSAL_CONFIG = {
       id: "domain-com-ar",
       title: "Dominio Propio Nacional (.com.ar - NIC Argentina)",
       badge: "Recomendado",
-      setupHours: 2,
-      annualLicenseARS: 8500,
+      setupCostARS: 45000, // 2h setup & DNS delegation
+      annualLicenseARS: 8500, // Official annual fee paid to NIC.ar
       defaultSelected: true,
       description:
         "Dirección oficial en Argentina registrada a tu nombre (por ejemplo: 'www.electricistaperez.com.ar'). El registro se realiza directamente en NIC Argentina mediante Trámites a Distancia (TAD) con Clave Fiscal.",
@@ -154,8 +137,8 @@ const PROPOSAL_CONFIG = {
       id: "domain-com",
       title: "Dominio Internacional (.com)",
       badge: "Internacional",
-      setupHours: 1.5,
-      annualLicenseARS: 22000,
+      setupCostARS: 33750, // 1.5h setup
+      annualLicenseARS: 22000, // Annual renewal reference
       description:
         "Dirección global (por ejemplo: 'www.electricistaperez.com'). La activación es inmediata sin requerir gestiones ante organismos fiscales locales.",
       pros: ["Activación directa en pocos minutos", "Reconocimiento estándar internacional"],
@@ -172,11 +155,11 @@ const PROPOSAL_CONFIG = {
       monthlyARS: 0,
       defaultSelected: true,
       description:
-        "Entrego el sitio web publicado y funcionando en servidores gratuitos sin cargos mensuales. Si en el futuro necesitás actualizar fotos, precios o datos de contacto, me solicitás el ajuste puntual por hora de trabajo.",
+        "Entrego el sitio web publicado y funcionando en servidores gratuitos sin cargos mensuales. Si en el futuro necesitás actualizar fotos, precios o datos de contacto, me solicitás el ajuste puntual cotizado de forma particular.",
       includes: [
         "Hosting estático sin cargo mensual",
         "Entrega de accesos y manual básico de consulta",
-        "Soporte y modificaciones futuras a demanda (cotizadas por hora)",
+        "Soporte y modificaciones futuras a demanda",
       ],
     },
     {

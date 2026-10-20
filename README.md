@@ -53,28 +53,33 @@ pricing: {
 
 ## Summary of Budgeted Options (at $15 USD/hr = $22,500 ARS/hr)
 
-### 1. Development Modules (One-Time Investment)
-| Module | Projected Hours | Total (ARS) |
+### 1. Main Development Modules (One-Time Investment)
+| Module | Internal Hours | Total (ARS) |
 | :--- | :---: | :---: |
-| **Static Web Page + Google Maps Setup** | `14h` | **$ 315.000 ARS** |
+| **Static Web Page** | `12h` | **$ 270.000 ARS** |
 | **24/7 WhatsApp Triage Bot + Lead Sheet** | `16h` | **$ 360.000 ARS** |
 | **Social Media Initial Kit + "Photo-to-Post" Automation** | `10h` | **$ 225.000 ARS** |
 
-### 2. Domain / URL Licensing Options
+### 2. Standalone Extras
+| Extra | Internal Hours | Total (ARS) |
+| :--- | :---: | :---: |
+| **Google Maps Setup & Optimization (Google Business Profile)** | `~2.5h` | **$ 55.000 ARS** |
+
+### 3. Domain / URL Licensing Options
 | Option | Setup Hours / Cost | Annual License (ARS) |
 | :--- | :---: | :---: |
 | **Free Subdomain (`.github.io` / `.vercel.app`)** | `0h` ($ 0) | **$ 0 / year** |
 | **National Domain (`.com.ar` via NIC Argentina)** | `2h` ($ 45.000 ARS) | **~$ 8.500 ARS / year** |
 | **International Domain (`.com`)** | `1.5h` ($ 33.750 ARS) | **~$ 22.000 ARS / year** |
 
-### 3. Ongoing Technical Maintenance & Bot Hosting
+### 4. Ongoing Technical Maintenance & Bot Hosting
 | Plan | Monthly Equivalent | Monthly Cost (ARS) |
 | :--- | :---: | :---: |
 | **Self-Managed (Autogestión)** | `0h/mo` | **$ 0 / month** |
 | **Web Maintenance & Support** | `~1.5h/mo` | **$ 35.000 ARS / month** |
 | **24/7 Bot Cloud Server + Web Maintenance** | `~2.5h/mo` | **$ 55.000 ARS / month** |
 
-### 4. Ongoing Social Media Management (Optional Retainers)
+### 5. Ongoing Social Media Management (Optional Retainers)
 | Plan | Monthly Hours | Monthly Cost (ARS) |
 | :--- | :---: | :---: |
 | **Self-Managed (No Monthly Retainer)** | `0h/mo` | **$ 0 / month** |

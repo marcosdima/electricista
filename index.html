@@ -92,7 +92,7 @@
             <span>Presencia Profesional</span>
           </div>
           <p class="text-xs text-slate-400 leading-relaxed">
-            Una página rápida con tus trabajos, zonas de atención y presencia en Google Maps para búsquedas locales.
+            Una página web rápida con tus trabajos, zonas de cobertura y contacto inmediato por WhatsApp.
           </p>
         </div>
         <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-4">
@@ -196,10 +196,10 @@
 
             <div class="flex items-center justify-between bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs text-slate-700">
               <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                <span class="font-semibold text-slate-900">Ficha optimizada en Google Maps</span>
+                <svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span class="font-semibold text-slate-900">Sitio web optimizado para celulares</span>
               </div>
-              <span class="text-slate-500 text-[11px]">Búsquedas de cercanía</span>
+              <span class="text-slate-500 text-[11px]">Carga ultrarrápida</span>
             </div>
           </div>
         </div>
@@ -272,21 +272,13 @@
   <section id="configurador" class="py-14 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <div class="max-w-3xl mb-8">
+      <div class="max-w-3xl mb-10">
         <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-2">
           Opciones y Presupuesto
         </h2>
         <p class="text-sm sm:text-base text-slate-600">
-          Podés seleccionar un paquete base o armar una combinación personalizada marcando los módulos que necesites. Los valores reflejan las horas estimadas de desarrollo y configuración.
+          Marcá los módulos y servicios que necesites para armar tu presupuesto a medida. Cada opción puede contratarse de forma independiente según tus prioridades.
         </p>
-      </div>
-
-      <!-- Presets -->
-      <div class="mb-12">
-        <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">
-          Combinaciones frecuentes:
-        </div>
-        <div id="presets-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
       </div>
 
       <!-- Step-by-Step Selection + Sticky Summary -->
@@ -314,11 +306,30 @@
             <div id="modules-container" class="space-y-4"></div>
           </div>
 
-          <!-- Step 2: Domain -->
-          <div id="dominios" class="pt-4 border-t border-slate-200">
+          <!-- Step 2: Extras (Google Maps, etc.) -->
+          <div class="pt-4 border-t border-slate-200">
             <div class="flex items-center gap-3 mb-4">
               <span class="w-7 h-7 rounded-lg bg-slate-900 text-white font-bold flex items-center justify-center text-xs">
                 2
+              </span>
+              <div>
+                <h3 class="text-lg font-bold text-slate-900">
+                  Servicios Extras Opcionales (Pago Único)
+                </h3>
+                <p class="text-xs text-slate-500">
+                  Configuraciones individuales complementarias para potenciar tu presencia local.
+                </p>
+              </div>
+            </div>
+
+            <div id="extras-container" class="grid grid-cols-1 gap-4"></div>
+          </div>
+
+          <!-- Step 3: Domain -->
+          <div id="dominios" class="pt-4 border-t border-slate-200">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="w-7 h-7 rounded-lg bg-slate-900 text-white font-bold flex items-center justify-center text-xs">
+                3
               </span>
               <div>
                 <h3 class="text-lg font-bold text-slate-900">
@@ -333,11 +344,11 @@
             <div id="domains-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
           </div>
 
-          <!-- Step 3: Management -->
+          <!-- Step 4: Management -->
           <div class="pt-4 border-t border-slate-200">
             <div class="flex items-center gap-3 mb-4">
               <span class="w-7 h-7 rounded-lg bg-slate-900 text-white font-bold flex items-center justify-center text-xs">
-                3
+                4
               </span>
               <div>
                 <h3 class="text-lg font-bold text-slate-900">
@@ -352,11 +363,11 @@
             <div id="management-container" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
           </div>
 
-          <!-- Step 4: Social Media Retainer -->
+          <!-- Step 5: Social Media Retainer -->
           <div class="pt-4 border-t border-slate-200">
             <div class="flex items-center gap-3 mb-4">
               <span class="w-7 h-7 rounded-lg bg-slate-900 text-white font-bold flex items-center justify-center text-xs">
-                4
+                5
               </span>
               <div>
                 <h3 class="text-lg font-bold text-slate-900">
@@ -383,8 +394,8 @@
                 </span>
                 <h3 class="text-base font-bold text-white">Resumen Estimado</h3>
               </div>
-              <span id="summary-total-hours" class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-full font-medium">
-                16 horas estimadas
+              <span id="summary-items-count" class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-full font-medium">
+                1 servicio seleccionado
               </span>
             </div>
 
@@ -395,7 +406,7 @@
             <div class="py-4 border-b border-slate-800">
               <div class="flex items-baseline justify-between mb-1">
                 <span class="text-xs text-slate-400 font-medium">Inversión Inicial:</span>
-                <span id="summary-onetime-total" class="text-2xl font-bold text-amber-400">$ 360.000 ARS</span>
+                <span id="summary-onetime-total" class="text-2xl font-bold text-amber-400">$ 315.000 ARS</span>
               </div>
               <div class="flex justify-between text-xs text-slate-400 mt-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
                 <span>Forma de pago:</span>
@@ -494,10 +505,10 @@
 
         <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200">
           <h3 class="font-bold text-slate-900 text-sm mb-1.5">
-            ¿Puedo empezar solo con la web y sumar el bot más adelante?
+            ¿El bot de WhatsApp tiene costos extras o es gratuito?
           </h3>
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Sí. La propuesta está dividida de forma modular precisamente para que puedas iniciar con la presencia web y luego activar el bot o la gestión de redes cuando lo consideres oportuno.
+            La plataforma oficial de WhatsApp (Meta) incluye 1.000 conversaciones iniciadas por clientes por mes de forma gratuita, lo cual cubre de sobra el movimiento de un electricista. El único gasto operativo es el servidor en la nube para que funcione las 24 horas sin depender de tu computadora, el cual queda cubierto dentro del abono mensual con Servidor Cloud si elegís esa opción.
           </p>
         </div>
 
