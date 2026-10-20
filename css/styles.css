@@ -1,0 +1,98 @@
+/* 
+ * Custom Styles for the Electrician Interactive Proposal
+ * Complements Tailwind CSS utility classes
+ */
+
+:root {
+  --electric-amber: #f59e0b;
+  --electric-yellow: #fbbf24;
+  --whatsapp-green: #25d366;
+  --dark-slate: #0f172a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+/* Subtle electrical grid background pattern for dark sections */
+.bg-grid-pattern {
+  background-image: radial-gradient(rgba(251, 191, 36, 0.14) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Highlight card transition & active border */
+.selectable-card {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.selectable-card:hover {
+  transform: translateY(-2px);
+}
+
+.selectable-card.is-selected {
+  border-color: #f59e0b;
+  background-color: #fffbeb;
+  box-shadow: 0 10px 25px -5px rgba(245, 158, 11, 0.15), 0 0 0 2px #f59e0b;
+}
+
+/* Preset buttons active state */
+.preset-btn.is-active {
+  background-color: #0f172a;
+  color: #ffffff;
+  border-color: #f59e0b;
+  box-shadow: 0 8px 20px -4px rgba(15, 23, 42, 0.25);
+}
+
+/* WhatsApp Chat Simulator styles */
+.wa-chat-bg {
+  background-color: #efeae2;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 0);
+  background-size: 16px 16px;
+}
+
+.wa-bubble-bot {
+  background-color: #ffffff;
+  border-radius: 0 12px 12px 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.wa-bubble-user {
+  background-color: #d9fdd3;
+  border-radius: 12px 0 12px 12px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+/* Smooth fade-in animation for dynamic elements */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInSlide 0.25s ease-out forwards;
+}
+
+/* Print optimization so Ctrl+P produces a clean PDF proposal */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+  }
+  .print-break-inside-avoid {
+    break-inside: avoid;
+  }
+}
