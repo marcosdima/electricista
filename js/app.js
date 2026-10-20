@@ -1,9 +1,9 @@
 /**
- * Main Application Logic for the Electrician Interactive Proposal
- * Renders UI sections from PROPOSAL_CONFIG and manages live budget calculations in ARS.
+ * Main Application Logic for the Electrician Proposal
+ * Clean, emoji-free, first-person singular perspective, with selection micro-animations.
  */
 
-// Application state initialized from PROPOSAL_CONFIG defaults
+// Application state initialized from PROPOSAL_CONFIG
 const state = {
   activePresetId: "preset-basic",
   selectedModules: new Set(
@@ -24,7 +24,7 @@ const state = {
 };
 
 /**
- * Formats a numeric value as Argentine Pesos (e.g., "$ 315.000")
+ * Formats a numeric value as Argentine Pesos (e.g., "$ 315.000 ARS")
  * @param {number} amount
  * @returns {string}
  */
@@ -48,27 +48,57 @@ function calculateHoursCostARS(hours) {
 }
 
 /**
- * Returns an SVG icon string by name
+ * Returns a clean SVG icon (Lucide style) by name
  * @param {string} name
+ * @param {string} customClass
  * @returns {string}
  */
-function getIconSVG(name) {
+function getIconSVG(name, customClass = "w-5 h-5") {
   const icons = {
-    globe: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
-    "message-circle": `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>`,
-    instagram: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
-    calculator: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg>`,
-    "file-text": `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
-    calendar: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
-    star: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
-    bell: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
-    check: `<svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`,
+    zap: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+    globe: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    "message-square": `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
+    instagram: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+    calculator: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M16 10h.01M12 10h.01M8 10h.01M12 14h.01M8 14h.01M12 18h.01M8 18h.01"/></svg>`,
+    "file-text": `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
+    calendar: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+    star: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+    bell: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+    check: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>`,
+    "map-pin": `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`,
+    "shield-check": `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`,
+    wrench: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`,
+    clock: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    send: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>`,
+    printer: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`,
+    copy: `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`,
+    "arrow-right": `<svg class="${customClass}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`,
   };
   return icons[name] || icons.globe;
 }
 
 /**
- * Applies a preset configuration when the user clicks a quick preset card
+ * Triggers a subtle value update animation on target elements
+ */
+function animateValueUpdates() {
+  const elements = [
+    document.getElementById("summary-onetime-total"),
+    document.getElementById("summary-deposit"),
+    document.getElementById("summary-annual-domain"),
+    document.getElementById("summary-monthly-total"),
+    document.getElementById("summary-total-hours"),
+  ];
+
+  elements.forEach((el) => {
+    if (!el) return;
+    el.classList.remove("value-updated");
+    void el.offsetWidth; // Trigger reflow
+    el.classList.add("value-updated");
+  });
+}
+
+/**
+ * Applies a preset configuration when the user clicks a preset card
  * @param {string} presetId
  */
 function applyPreset(presetId) {
@@ -82,10 +112,11 @@ function applyPreset(presetId) {
   state.selectedSocialMonthlyId = preset.socialMonthly;
 
   renderAll();
+  animateValueUpdates();
 }
 
 /**
- * Checks if current selection matches any preset and updates state.activePresetId
+ * Syncs the active preset button state
  */
 function syncActivePresetState() {
   const matched = PROPOSAL_CONFIG.presets.find((p) => {
@@ -103,7 +134,7 @@ function syncActivePresetState() {
 }
 
 /**
- * Toggles a development module on/off
+ * Toggles a development module
  * @param {string} moduleId
  */
 function toggleModule(moduleId) {
@@ -114,6 +145,7 @@ function toggleModule(moduleId) {
   }
   syncActivePresetState();
   renderAll();
+  animateValueUpdates();
 }
 
 /**
@@ -124,6 +156,7 @@ function selectDomain(domainId) {
   state.selectedDomainId = domainId;
   syncActivePresetState();
   renderAll();
+  animateValueUpdates();
 }
 
 /**
@@ -134,20 +167,22 @@ function selectManagement(mgmtId) {
   state.selectedManagementId = mgmtId;
   syncActivePresetState();
   renderAll();
+  animateValueUpdates();
 }
 
 /**
- * Selects a monthly social media retainer option
+ * Selects a monthly social media option
  * @param {string} socialId
  */
 function selectSocialMonthly(socialId) {
   state.selectedSocialMonthlyId = socialId;
   syncActivePresetState();
   renderAll();
+  animateValueUpdates();
 }
 
 /**
- * Renders the Preset Selector buttons
+ * Renders the Presets
  */
 function renderPresets() {
   const container = document.getElementById("presets-container");
@@ -156,65 +191,60 @@ function renderPresets() {
   container.innerHTML = PROPOSAL_CONFIG.presets
     .map((preset) => {
       const isActive = state.activePresetId === preset.id;
-      // Calculate preset one-time total for preview
       const moduleHours = preset.modules.reduce((acc, modId) => {
         const mod = PROPOSAL_CONFIG.developmentModules.find((m) => m.id === modId);
         return acc + (mod ? mod.hours : 0);
       }, 0);
       const rawModulesCost = calculateHoursCostARS(moduleHours);
-      const discount =
-        preset.modules.length >= 2
-          ? rawModulesCost * (PROPOSAL_CONFIG.pricing.bundleDiscountPercent / 100)
-          : 0;
       const domainObj = PROPOSAL_CONFIG.domainOptions.find(
         (d) => d.id === preset.domain
       );
       const domainSetupCost = domainObj
         ? calculateHoursCostARS(domainObj.setupHours)
         : 0;
-      const totalInitial = rawModulesCost - discount + domainSetupCost;
+      const totalInitial = rawModulesCost + domainSetupCost;
 
       return `
         <button
           type="button"
           onclick="applyPreset('${preset.id}')"
-          class="preset-btn text-left p-5 rounded-2xl border-2 transition-all flex flex-col justify-between ${
+          class="preset-btn text-left p-5 rounded-2xl border transition-all flex flex-col justify-between ${
             isActive
-              ? "is-active border-amber-500 bg-slate-900 text-white"
-              : "border-slate-200 bg-white hover:border-amber-400 text-slate-900"
+              ? "is-active border-amber-600 bg-slate-900 text-white"
+              : "border-slate-200 bg-white hover:border-slate-400 text-slate-900"
           }"
         >
           <div>
             <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full ${
                 isActive
-                  ? "bg-amber-500 text-slate-950"
-                  : "bg-amber-100 text-amber-800"
+                  ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                  : "bg-slate-100 text-slate-700"
               }">
                 ${preset.badge}
               </span>
-              <span class="text-xs font-medium ${
-                isActive ? "text-amber-300" : "text-slate-500"
+              <span class="text-xs ${
+                isActive ? "text-amber-400 font-medium" : "text-slate-400"
               }">
-                ${isActive ? "✓ Seleccionado" : "Click para cargar"}
+                ${isActive ? "Seleccionado" : "Click para aplicar"}
               </span>
             </div>
-            <h3 class="text-lg font-bold mb-1.5">${preset.name}</h3>
-            <p class="text-sm leading-relaxed ${
+            <h3 class="text-base font-bold mb-1.5">${preset.name}</h3>
+            <p class="text-xs sm:text-sm leading-relaxed ${
               isActive ? "text-slate-300" : "text-slate-600"
             }">
               ${preset.description}
             </p>
           </div>
           <div class="mt-4 pt-3 border-t ${
-            isActive ? "border-slate-700" : "border-slate-100"
+            isActive ? "border-slate-800" : "border-slate-100"
           } flex items-baseline justify-between">
             <span class="text-xs ${
               isActive ? "text-slate-400" : "text-slate-500"
-            }">Inversión inicial est.:</span>
-            <span class="text-lg font-extrabold ${
+            }">Inversión inicial:</span>
+            <span class="text-base font-bold ${
               isActive ? "text-amber-400" : "text-slate-900"
-            }">${formatARS(totalInitial)} <small class="font-normal text-xs">ARS</small></span>
+            }">${formatARS(totalInitial)} <span class="font-normal text-xs text-slate-400">ARS</span></span>
           </div>
         </button>
       `;
@@ -223,7 +253,7 @@ function renderPresets() {
 }
 
 /**
- * Renders Step 1: Development Modules
+ * Renders Development Modules
  */
 function renderDevelopmentModules() {
   const container = document.getElementById("modules-container");
@@ -237,7 +267,7 @@ function renderDevelopmentModules() {
       return `
         <div
           onclick="toggleModule('${mod.id}')"
-          class="selectable-card cursor-pointer rounded-2xl border-2 p-6 bg-white ${
+          class="selectable-card cursor-pointer rounded-2xl border p-6 bg-white ${
             isSelected ? "is-selected" : "border-slate-200"
           }"
         >
@@ -247,38 +277,31 @@ function renderDevelopmentModules() {
                 isSelected
                   ? "bg-amber-500 text-slate-950"
                   : "bg-slate-100 text-slate-700"
-              } transition-colors">
-                ${getIconSVG(mod.icon)}
+              } transition-colors shrink-0">
+                ${getIconSVG(mod.icon, "w-6 h-6")}
               </div>
               <div>
-                <div class="flex flex-wrap items-center gap-2">
-                  <h4 class="text-lg font-bold text-slate-900">${mod.title}</h4>
-                  ${
-                    mod.recommended
-                      ? `<span class="text-xs font-semibold bg-amber-100 text-amber-800 px-2.5 py-0.5 rounded-full">Recomendado</span>`
-                      : ""
-                  }
-                </div>
+                <h4 class="text-lg font-bold text-slate-900">${mod.title}</h4>
                 <p class="text-sm text-slate-600 mt-0.5">${mod.subtitle}</p>
               </div>
             </div>
 
             <div class="flex md:flex-col items-center md:items-end justify-between border-t md:border-t-0 pt-3 md:pt-0 border-slate-100 shrink-0">
               <div class="text-right">
-                <span class="text-2xl font-extrabold text-slate-900">${formatARS(
+                <span class="text-2xl font-bold text-slate-900">${formatARS(
                   costARS
                 )}</span>
-                <span class="text-xs font-semibold text-slate-500 block">Pago único (${
+                <span class="text-xs text-slate-500 block">Pago único (${
                   mod.hours
-                } hs de desarrollo)</span>
+                } hs estimadas)</span>
               </div>
               <div class="mt-2">
-                <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-lg ${
+                <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg ${
                   isSelected
                     ? "bg-amber-500 text-slate-950"
                     : "bg-slate-100 text-slate-700"
                 }">
-                  ${isSelected ? "✓ Incluido en propuesta" : "+ Agregar módulo"}
+                  ${isSelected ? "Incluido en propuesta" : "Agregar módulo"}
                 </span>
               </div>
             </div>
@@ -289,15 +312,19 @@ function renderDevelopmentModules() {
           </p>
 
           <div class="bg-slate-50 rounded-xl p-4 border border-slate-200/70">
-            <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">
-              ¿Qué incluye este desarrollo? (Entrega estimada: ${mod.deliveryTime})
-            </p>
+            <div class="flex items-center justify-between text-xs font-semibold text-slate-500 mb-2.5">
+              <span>ALCANCE DEL DESARROLLO</span>
+              <span>Entrega estimada: ${mod.deliveryTime}</span>
+            </div>
             <ul class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
               ${mod.features
                 .map(
                   (feat) => `
                 <li class="flex items-start gap-2 text-xs sm:text-sm text-slate-700">
-                  ${getIconSVG("check")}
+                  <span class="text-amber-600 shrink-0 mt-0.5">${getIconSVG(
+                    "check",
+                    "w-4 h-4"
+                  )}</span>
                   <span>${feat}</span>
                 </li>
               `
@@ -305,7 +332,7 @@ function renderDevelopmentModules() {
                 .join("")}
             </ul>
             <p class="mt-3 pt-2.5 border-t border-slate-200/80 text-xs text-slate-500">
-              💡 <strong>Detalle técnico:</strong> ${mod.techNote}
+              <strong>Nota técnica:</strong> ${mod.techNote}
             </p>
           </div>
         </div>
@@ -315,7 +342,7 @@ function renderDevelopmentModules() {
 }
 
 /**
- * Renders Step 2: Domain / URL Licensing Options
+ * Renders Domain Options
  */
 function renderDomainOptions() {
   const container = document.getElementById("domains-container");
@@ -329,20 +356,20 @@ function renderDomainOptions() {
       return `
         <div
           onclick="selectDomain('${dom.id}')"
-          class="selectable-card cursor-pointer rounded-2xl border-2 p-5 bg-white flex flex-col justify-between ${
+          class="selectable-card cursor-pointer rounded-2xl border p-5 bg-white flex flex-col justify-between ${
             isSelected ? "is-selected" : "border-slate-200"
           }"
         >
           <div>
             <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="text-xs font-bold px-2.5 py-1 rounded-full ${
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full ${
                 isSelected
-                  ? "bg-amber-500 text-slate-950"
+                  ? "bg-amber-100 text-amber-800"
                   : "bg-slate-100 text-slate-700"
               }">
                 ${dom.badge}
               </span>
-              <span class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+              <span class="w-5 h-5 rounded-full border flex items-center justify-center check-circle ${
                 isSelected ? "border-amber-600 bg-amber-500" : "border-slate-300"
               }">
                 ${
@@ -362,8 +389,8 @@ function renderDomainOptions() {
               ${dom.pros
                 .map(
                   (pro) => `
-                <div class="flex items-start gap-1.5 text-xs text-emerald-800">
-                  <span class="font-bold text-emerald-600">✓</span>
+                <div class="flex items-start gap-1.5 text-xs text-slate-700">
+                  <span class="text-emerald-600 font-bold">•</span>
                   <span>${pro}</span>
                 </div>
               `
@@ -373,7 +400,7 @@ function renderDomainOptions() {
                 .map(
                   (con) => `
                 <div class="flex items-start gap-1.5 text-xs text-slate-500">
-                  <span class="font-bold text-amber-600">•</span>
+                  <span class="text-slate-400 font-bold">•</span>
                   <span>${con}</span>
                 </div>
               `
@@ -384,17 +411,17 @@ function renderDomainOptions() {
 
           <div class="pt-3 border-t border-slate-200/80 space-y-1 text-xs">
             <div class="flex justify-between">
-              <span class="text-slate-500">Configuración e instalación:</span>
-              <span class="font-bold text-slate-900">${
-                setupCostARS === 0 ? "Bonificado ($ 0)" : formatARS(setupCostARS)
+              <span class="text-slate-500">Configuración e integración:</span>
+              <span class="font-semibold text-slate-900">${
+                setupCostARS === 0 ? "Sin cargo ($ 0)" : formatARS(setupCostARS)
               }</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-500">Licencia anual (renovación 1 vez al año):</span>
-              <span class="font-bold text-amber-700">${
+              <span class="text-slate-500">Licencia anual oficial:</span>
+              <span class="font-semibold text-amber-800">${
                 dom.annualLicenseARS === 0
                   ? "$ 0 / año"
-                  : `~${formatARS(dom.annualLicenseARS)} / año`
+                  : `${formatARS(dom.annualLicenseARS)} / año`
               }</span>
             </div>
           </div>
@@ -405,7 +432,7 @@ function renderDomainOptions() {
 }
 
 /**
- * Renders Step 3: Technical Management & Monthly Maintenance Options
+ * Renders Management Options
  */
 function renderManagementOptions() {
   const container = document.getElementById("management-container");
@@ -416,26 +443,25 @@ function renderManagementOptions() {
   container.innerHTML = PROPOSAL_CONFIG.managementOptions
     .map((mgmt) => {
       const isSelected = state.selectedManagementId === mgmt.id;
-      const showBotWarning =
-        hasBotSelected && mgmt.id === "mgmt-self";
+      const showBotNotice = hasBotSelected && mgmt.id === "mgmt-self";
 
       return `
         <div
           onclick="selectManagement('${mgmt.id}')"
-          class="selectable-card cursor-pointer rounded-2xl border-2 p-5 bg-white flex flex-col justify-between ${
+          class="selectable-card cursor-pointer rounded-2xl border p-5 bg-white flex flex-col justify-between ${
             isSelected ? "is-selected" : "border-slate-200"
           }"
         >
           <div>
             <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="text-xs font-bold px-2.5 py-1 rounded-full ${
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full ${
                 isSelected
-                  ? "bg-amber-500 text-slate-950"
+                  ? "bg-amber-100 text-amber-800"
                   : "bg-slate-100 text-slate-700"
               }">
                 ${mgmt.badge}
               </span>
-              <span class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+              <span class="w-5 h-5 rounded-full border flex items-center justify-center check-circle ${
                 isSelected ? "border-amber-600 bg-amber-500" : "border-slate-300"
               }">
                 ${
@@ -456,7 +482,7 @@ function renderManagementOptions() {
                 .map(
                   (inc) => `
                 <li class="flex items-start gap-1.5 text-xs text-slate-700">
-                  <span class="font-bold text-amber-600">✓</span>
+                  <span class="text-amber-600 font-bold">•</span>
                   <span>${inc}</span>
                 </li>
               `
@@ -465,9 +491,9 @@ function renderManagementOptions() {
             </ul>
 
             ${
-              showBotWarning
-                ? `<div class="p-2.5 rounded-lg bg-amber-50 border border-amber-300 text-xs text-amber-900 mb-3">
-                    ⚠️ <strong>Nota sobre el Bot:</strong> En modo autogestión se configura con herramientas gratuitas o en tu propia PC, pero si buscás que funcione 24/7 sin depender de tu equipo, recomendamos el plan con Servidor Bot.
+              showBotNotice
+                ? `<div class="p-2.5 rounded-lg bg-slate-100 border border-slate-200 text-xs text-slate-700 mb-3">
+                    <strong>Aclaración:</strong> Para que el asistente de WhatsApp funcione las 24 horas sin depender de tu propia computadora encendida, se requiere el abono con Servidor Cloud.
                   </div>`
                 : ""
             }
@@ -475,11 +501,11 @@ function renderManagementOptions() {
 
           <div class="pt-3 border-t border-slate-200/80 flex items-baseline justify-between">
             <span class="text-xs text-slate-500">Abono mensual:</span>
-            <span class="text-lg font-extrabold text-slate-900">
+            <span class="text-base font-bold text-slate-900">
               ${
                 mgmt.monthlyARS === 0
                   ? "$ 0 / mes"
-                  : `${formatARS(mgmt.monthlyARS)} <small class="text-xs font-normal text-slate-500">/ mes</small>`
+                  : `${formatARS(mgmt.monthlyARS)} <span class="text-xs font-normal text-slate-500">/ mes</span>`
               }
             </span>
           </div>
@@ -490,7 +516,7 @@ function renderManagementOptions() {
 }
 
 /**
- * Renders Step 4: Ongoing Social Media Management Plans
+ * Renders Social Media Monthly Retainers
  */
 function renderSocialMonthlyOptions() {
   const container = document.getElementById("social-monthly-container");
@@ -503,20 +529,20 @@ function renderSocialMonthlyOptions() {
       return `
         <div
           onclick="selectSocialMonthly('${soc.id}')"
-          class="selectable-card cursor-pointer rounded-2xl border-2 p-5 bg-white flex flex-col justify-between ${
+          class="selectable-card cursor-pointer rounded-2xl border p-5 bg-white flex flex-col justify-between ${
             isSelected ? "is-selected" : "border-slate-200"
           }"
         >
           <div>
             <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="text-xs font-bold px-2.5 py-1 rounded-full ${
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full ${
                 isSelected
-                  ? "bg-amber-500 text-slate-950"
+                  ? "bg-amber-100 text-amber-800"
                   : "bg-slate-100 text-slate-700"
               }">
                 ${soc.badge}
               </span>
-              <span class="w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+              <span class="w-5 h-5 rounded-full border flex items-center justify-center check-circle ${
                 isSelected ? "border-amber-600 bg-amber-500" : "border-slate-300"
               }">
                 ${
@@ -537,7 +563,7 @@ function renderSocialMonthlyOptions() {
                 .map(
                   (inc) => `
                 <li class="flex items-start gap-1.5 text-xs text-slate-700">
-                  <span class="font-bold text-amber-600">✓</span>
+                  <span class="text-amber-600 font-bold">•</span>
                   <span>${inc}</span>
                 </li>
               `
@@ -548,11 +574,11 @@ function renderSocialMonthlyOptions() {
 
           <div class="pt-3 border-t border-slate-200/80 flex items-baseline justify-between">
             <span class="text-xs text-slate-500">Inversión mensual:</span>
-            <span class="text-lg font-extrabold text-slate-900">
+            <span class="text-base font-bold text-slate-900">
               ${
                 soc.monthlyARS === 0
                   ? "$ 0 / mes"
-                  : `${formatARS(soc.monthlyARS)} <small class="text-xs font-normal text-slate-500">/ mes</small>`
+                  : `${formatARS(soc.monthlyARS)} <span class="text-xs font-normal text-slate-500">/ mes</span>`
               }
             </span>
           </div>
@@ -563,7 +589,7 @@ function renderSocialMonthlyOptions() {
 }
 
 /**
- * Renders the Live Budget Summary Sticky Panel
+ * Renders the Live Budget Summary Panel
  */
 function renderSummary() {
   const selectedMods = PROPOSAL_CONFIG.developmentModules.filter((m) =>
@@ -579,35 +605,26 @@ function renderSummary() {
     (s) => s.id === state.selectedSocialMonthlyId
   );
 
-  // Calculate one-time development hours & ARS cost
   const devHours = selectedMods.reduce((sum, m) => sum + m.hours, 0);
   const rawDevCostARS = calculateHoursCostARS(devHours);
 
-  // Apply bundle discount if 2+ development modules are selected
-  const hasBundleDiscount = selectedMods.length >= 2;
-  const discountARS = hasBundleDiscount
-    ? rawDevCostARS * (PROPOSAL_CONFIG.pricing.bundleDiscountPercent / 100)
-    : 0;
-
-  // Domain setup hours
   const domainHours = domainObj ? domainObj.setupHours : 0;
   const domainSetupARS = calculateHoursCostARS(domainHours);
 
   const totalHours = devHours + domainHours;
-  const totalOneTimeARS = rawDevCostARS - discountARS + domainSetupARS;
+  const totalOneTimeARS = rawDevCostARS + domainSetupARS;
   const totalAnnualDomainARS = domainObj ? domainObj.annualLicenseARS : 0;
   const totalMonthlyARS =
     (mgmtObj ? mgmtObj.monthlyARS : 0) + (socialObj ? socialObj.monthlyARS : 0);
 
-  // Populate summary list
   const itemsListEl = document.getElementById("summary-items-list");
   if (itemsListEl) {
     const itemsHTML = [];
 
     if (selectedMods.length === 0) {
       itemsHTML.push(`
-        <div class="text-xs text-amber-300 bg-amber-950/50 border border-amber-700/50 rounded-lg p-3">
-          Seleccioná al menos un módulo de desarrollo en el Paso 1 para armar tu presupuesto.
+        <div class="text-xs text-slate-400 bg-slate-900 rounded-lg p-3 border border-slate-800">
+          Seleccioná al menos un módulo de desarrollo para visualizar el presupuesto.
         </div>
       `);
     } else {
@@ -626,23 +643,12 @@ function renderSummary() {
       });
     }
 
-    if (hasBundleDiscount) {
-      itemsHTML.push(`
-        <div class="flex justify-between items-center text-xs text-emerald-400 bg-emerald-950/40 px-2.5 py-1.5 rounded-lg border border-emerald-800/40">
-          <span>🎁 Descuento Pack (${PROPOSAL_CONFIG.pricing.bundleDiscountPercent}% por combinar módulos)</span>
-          <span class="font-bold">- ${formatARS(discountARS)}</span>
-        </div>
-      `);
-    }
-
     if (domainObj) {
       itemsHTML.push(`
         <div class="flex justify-between items-start text-sm gap-2 pt-2 border-t border-slate-800">
           <div>
             <span class="text-slate-300">${domainObj.title}</span>
-            <span class="block text-xs text-slate-400">Configuración inicial (${
-              domainObj.setupHours
-            } hs)</span>
+            <span class="block text-xs text-slate-400">Configuración (${domainObj.setupHours} hs)</span>
           </div>
           <span class="font-semibold text-slate-200 shrink-0">${
             domainSetupARS === 0 ? "$ 0" : formatARS(domainSetupARS)
@@ -654,32 +660,30 @@ function renderSummary() {
     itemsListEl.innerHTML = itemsHTML.join("");
   }
 
-  // Update totals in DOM
   const setElText = (id, text) => {
     const el = document.getElementById(id);
     if (el) el.textContent = text;
   };
 
-  setElText("summary-total-hours", `${totalHours} horas de trabajo`);
+  setElText("summary-total-hours", `${totalHours} horas estimadas`);
   setElText("summary-onetime-total", `${formatARS(totalOneTimeARS)} ARS`);
   setElText(
     "summary-deposit",
-    `${formatARS(totalOneTimeARS * 0.5)} ARS (50% al iniciar)`
+    `${formatARS(totalOneTimeARS * 0.5)} ARS (50% de anticipo)`
   );
   setElText(
     "summary-annual-domain",
     totalAnnualDomainARS === 0
-      ? "$ 0 (Gratis)"
-      : `~${formatARS(totalAnnualDomainARS)} ARS / año`
+      ? "$ 0"
+      : `${formatARS(totalAnnualDomainARS)} ARS / año`
   );
   setElText(
     "summary-monthly-total",
     totalMonthlyARS === 0
-      ? "$ 0 / mes (Sin abono fijo)"
+      ? "$ 0 / mes"
       : `${formatARS(totalMonthlyARS)} ARS / mes`
   );
 
-  // Breakdown of monthly items
   const monthlyDescEl = document.getElementById("summary-monthly-breakdown");
   if (monthlyDescEl) {
     const parts = [];
@@ -687,13 +691,13 @@ function renderSummary() {
     if (socialObj && socialObj.monthlyARS > 0) parts.push(socialObj.title);
     monthlyDescEl.textContent =
       parts.length > 0
-        ? `Incluye: ${parts.join(" + ")}`
-        : "Modalidad autogestionada sin costos fijos mensuales.";
+        ? `Abonos seleccionados: ${parts.join(" + ")}`
+        : "Sin costos mensuales fijos.";
   }
 }
 
 /**
- * Renders the Future Roadmap (Unpriced Phase 2 Ideas)
+ * Renders the Future Roadmap
  */
 function renderFutureRoadmap() {
   const container = document.getElementById("roadmap-container");
@@ -702,12 +706,12 @@ function renderFutureRoadmap() {
   container.innerHTML = PROPOSAL_CONFIG.futureRoadmap
     .map(
       (item) => `
-      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow-md transition-shadow">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm hover:shadow transition-shadow">
         <div class="flex items-center justify-between gap-2 mb-3">
-          <div class="p-2.5 rounded-xl bg-amber-100 text-amber-800">
-            ${getIconSVG(item.icon)}
+          <div class="p-2 rounded-lg bg-amber-100 text-amber-900">
+            ${getIconSVG(item.icon, "w-5 h-5")}
           </div>
-          <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
+          <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700">
             ${item.tag}
           </span>
         </div>
@@ -720,36 +724,35 @@ function renderFutureRoadmap() {
 }
 
 /**
- * Renders the Interactive WhatsApp Bot Simulator in the Demo section
+ * Switches the Demo Scenario in the Simulator (No Emojis)
  * @param {string} scenarioKey
  */
 function switchDemoScenario(scenarioKey) {
   state.activeDemoScenario = scenarioKey;
 
-  // Update tab buttons
   document.querySelectorAll(".demo-tab-btn").forEach((btn) => {
     const isCurrent = btn.getAttribute("data-scenario") === scenarioKey;
-    btn.className = `demo-tab-btn text-left px-4 py-3 rounded-xl border text-xs sm:text-sm font-semibold transition-all ${
+    btn.className = `demo-tab-btn text-left px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all ${
       isCurrent
-        ? "bg-slate-900 text-white border-amber-500 shadow"
-        : "bg-white text-slate-700 border-slate-200 hover:border-amber-400"
+        ? "bg-slate-900 text-white border-amber-600 shadow-sm"
+        : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
     }`;
   });
 
   const scenarios = {
     emergency: {
-      title: "Caso 1: Cliente con una Urgencia Eléctrica",
+      title: "Caso 1: Urgencia Eléctrica",
       explanation:
-        "Vos estás trabajando en una obra y no podés atender. El bot identifica que es una urgencia real en tu zona, pide foto del tablero y te avisa con prioridad.",
+        "Mientras estás trabajando en una instalación, el asistente detecta la urgencia, solicita ubicación y foto del tablero técnico para que evalúes la situación de inmediato.",
       messages: [
         {
           from: "user",
-          text: "Hola! Saltó el disyuntor de mi casa y no vuelve a subir, estoy sin luz.",
+          text: "Hola, se cortó la luz en casa y saltó el disyuntor general, no sube.",
           time: "14:22",
         },
         {
           from: "bot",
-          text: "⚡ ¡Hola! Soy el asistente virtual de *Servicios Eléctricos*. En este momento el técnico se encuentra en una instalación.\n\nPor favor elegí una opción:\n*1.* 🚨 Es una URGENCIA ahora\n*2.* 📋 Quiero pedir un presupuesto\n*3.* 📍 Ver zonas y costos de visita",
+          text: "Hola. Te comunicás con el asistente técnico de Servicios Eléctricos. El instalador se encuentra en obra en este momento.\n\nPor favor seleccioná una opción:\n1. Urgencia eléctrica\n2. Solicitud de presupuesto\n3. Zonas y tarifas de visita",
           time: "14:22",
         },
         {
@@ -759,61 +762,61 @@ function switchDemoScenario(scenarioKey) {
         },
         {
           from: "bot",
-          text: "🚨 Entendido. Para darte prioridad inmediata, decime:\n1️⃣ ¿En qué *barrio/calles* estás?\n2️⃣ Si podés, enviá una *foto de tu tablero eléctrico* así el técnico ya lleva el repuesto adecuado.",
+          text: "Para evaluar la urgencia de inmediato:\n1. Indicá barrio o dirección aproximada.\n2. Enviá una fotografía del tablero principal para verificar el tipo de protección.",
           time: "14:23",
         },
         {
           from: "user",
-          text: "Estoy en Caballito, Av. Rivadavia al 5200. Ahí te mando foto del tablero 📷",
+          text: "Caballito, Av. Rivadavia al 5200. Te adjunto foto del tablero.",
           time: "14:24",
         },
         {
           from: "bot",
-          text: "✅ *¡Listo!* Ya le envié una alerta de urgencia al electricista con tus datos y ubicación. En menos de 10 minutos se comunica con vos.",
+          text: "Datos recibidos. Se envió un aviso prioritario al técnico con la información y fotografía. Te responderá a la brevedad.",
           time: "14:24",
         },
       ],
     },
     quote: {
-      title: "Caso 2: Solicitud de Presupuesto Programado",
+      title: "Caso 2: Solicitud de Presupuesto",
       explanation:
-        "Para trabajos que no son urgentes, el bot reúne toda la información técnica y la guarda en tu planilla para que presupuestos tranquilo al final del día.",
+        "Para trabajos no urgentes, el asistente recopila los detalles técnicos del trabajo y los guarda ordenados para que los presupuestes al finalizar tu jornada.",
       messages: [
         {
           from: "user",
-          text: "Hola buenas tardes, quería averiguar para colocar 4 tomas nuevos y revisar la térmica del aire.",
+          text: "Buenas tardes, necesito presupuesto para colocar 4 tomas nuevos y revisar una térmica.",
           time: "18:10",
         },
         {
           from: "bot",
-          text: "⚡ ¡Hola! Gracias por comunicarte. Para que el técnico te arme un presupuesto aproximado hoy mismo, contame:\n\n📍 ¿En qué *barrio o localidad* es el trabajo?\n📸 ¿Tenés una *foto de la pared o del tablero* actual?",
+          text: "Hola. Para preparar el presupuesto estimado hoy mismo:\n\n• ¿En qué localidad o barrio se encuentra el inmueble?\n• Si es posible, adjuntá una fotografía del sector a intervenir o del tablero actual.",
           time: "18:10",
         },
         {
           from: "user",
-          text: "Es en Ramos Mejía. Los tomas son sobre pared de ladrillo a la vista, te paso foto.",
+          text: "Es en Ramos Mejía. Los tomas van sobre pared de ladrillo. Ya te envío la foto.",
           time: "18:12",
         },
         {
           from: "bot",
-          text: "📋 ¡Excelente! Ya quedó registrada tu consulta en la agenda del día. Hoy a partir de las 19:30 hs el técnico revisa las fotos y te envía el presupuesto estimado por acá.",
+          text: "Consulta registrada. Al finalizar las obras del día, el técnico revisará el material técnico y te enviará la estimación correspondiente por este medio.",
           time: "18:12",
         },
       ],
     },
     social: {
-      title: "Caso 3: De la Obra a Instagram en 30 Segundos",
+      title: "Caso 3: Redacción Asistida para Redes",
       explanation:
-        "Con el Kit de Redes, le mandás una foto del trabajo terminado a tu propio asistente y te redacta el posteo listo para subir.",
+        "Con el kit inicial, enviás una foto del trabajo terminado con un breve audio descriptivo y el sistema te devuelve el texto técnico redactado de forma profesional.",
       messages: [
         {
           from: "user",
-          text: "📷 [Foto de tablero nuevo prolijo] + 🎤 Audio: 'Recambio completo de tablero en local de Flores, pusimos llaves Schneider y protector de tensión'",
+          text: "[Fotografía de tablero nuevo] + Audio: 'Recambio completo de tablero general en local de Flores, se reemplazaron térmicas viejas y se colocó protector de tensión'",
           time: "17:45",
         },
         {
           from: "bot",
-          text: "✨ *¡Texto listo para tu Instagram!* Copiá y pegá:\n\n⚡ *Renovación de Tablero Eléctrico en Flores* 🛠️\nHoy dejamos 100% seguro este local comercial:\n✅ Recambio de térmicas y disyuntor Schneider.\n✅ Instalación de protector de alta y baja tensión para cuidar los equipos.\n✅ Peinado de cables y rotulado completo.\n\n📲 ¿Necesitás actualizar la instalación de tu casa o comercio? Escribinos por WhatsApp desde el link de nuestro perfil.",
+          text: "Texto preparado para publicación:\n\nRenovación de Tablero General en Local Comercial\n\nTrabajo realizado hoy:\n• Reemplazo de protecciones termomagnéticas bajo norma IRAM.\n• Instalación de protector automático de sobretensión y subtensión.\n• Rotulado técnico y ordenamiento de circuitos.\n\nPor consultas de instalaciones o mantenimiento técnico, escribime directamente por WhatsApp.",
           time: "17:45",
         },
       ],
@@ -841,7 +844,7 @@ function switchDemoScenario(scenarioKey) {
             <p class="whitespace-pre-line leading-relaxed">${m.text}</p>
             <span class="block text-[10px] text-slate-400 text-right mt-1">${
               m.time
-            } ${m.from === "user" ? "✓✓" : ""}</span>
+            }</span>
           </div>
         </div>
       `
@@ -851,8 +854,7 @@ function switchDemoScenario(scenarioKey) {
 }
 
 /**
- * Generates a formatted Spanish summary of the selected configuration
- * for sharing via WhatsApp or copying to clipboard.
+ * Generates a clean markdown summary of the proposal for sharing
  * @returns {string}
  */
 function buildProposalSummaryText() {
@@ -871,48 +873,44 @@ function buildProposalSummaryText() {
 
   const devHours = selectedMods.reduce((sum, m) => sum + m.hours, 0);
   const rawDevCostARS = calculateHoursCostARS(devHours);
-  const discountARS =
-    selectedMods.length >= 2
-      ? rawDevCostARS * (PROPOSAL_CONFIG.pricing.bundleDiscountPercent / 100)
-      : 0;
   const domainSetupARS = domainObj
     ? calculateHoursCostARS(domainObj.setupHours)
     : 0;
-  const totalOneTimeARS = rawDevCostARS - discountARS + domainSetupARS;
+  const totalOneTimeARS = rawDevCostARS + domainSetupARS;
   const totalMonthlyARS =
     (mgmtObj ? mgmtObj.monthlyARS : 0) + (socialObj ? socialObj.monthlyARS : 0);
 
   const modLines =
     selectedMods.length > 0
-      ? selectedMods.map((m) => `• ${m.title}`).join("\n")
-      : "• Sin módulos seleccionados";
+      ? selectedMods.map((m) => `- ${m.title}`).join("\n")
+      : "- Sin módulos seleccionados";
 
   return [
-    `¡Hola! Estuve revisando la propuesta interactiva y me interesa esta configuración:`,
+    `Hola, estuve revisando la propuesta de desarrollo digital y seleccioné esta configuración:`,
     ``,
-    `*1. Desarrollo Inicial:*`,
+    `1. Desarrollo Inicial:`,
     modLines,
     ``,
-    `*2. Dominio Web (URL):*`,
-    `• ${domainObj ? domainObj.title : "No especificado"}`,
+    `2. Dirección Web (Dominio):`,
+    `- ${domainObj ? domainObj.title : "No definido"}`,
     ``,
-    `*3. Mantenimiento y Redes:*`,
-    `• Soporte Técnico: ${mgmtObj ? mgmtObj.title : "-"}`,
-    `• Gestión de Redes: ${socialObj ? socialObj.title : "-"}`,
+    `3. Modalidad de Mantenimiento y Redes:`,
+    `- Mantenimiento técnico: ${mgmtObj ? mgmtObj.title : "-"}`,
+    `- Redes sociales: ${socialObj ? socialObj.title : "-"}`,
     ``,
-    `💰 *Inversión Inicial Estimada:* ${formatARS(totalOneTimeARS)} ARS`,
-    `📅 *Abono Mensual:* ${
+    `Inversión Inicial Estimada: ${formatARS(totalOneTimeARS)} ARS`,
+    `Abono Mensual: ${
       totalMonthlyARS === 0
         ? "$ 0 (Autogestión)"
         : `${formatARS(totalMonthlyARS)} ARS/mes`
     }`,
     ``,
-    `¿Coordinamos una breve llamada para avanzar?`,
+    `¿Cuándo podemos coordinar para comenzar?`,
   ].join("\n");
 }
 
 /**
- * Handles clicking "Enviar selección por WhatsApp" or copying summary
+ * Handles sending selection to WhatsApp or copying to clipboard
  */
 function handleSendProposalSelection() {
   const summaryText = buildProposalSummaryText();
@@ -922,19 +920,18 @@ function handleSendProposalSelection() {
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(summaryText)}`;
     window.open(url, "_blank", "noopener,noreferrer");
   } else {
-    // Copy to clipboard and show feedback modal/toast
     navigator.clipboard.writeText(summaryText).then(() => {
       const toast = document.getElementById("copy-toast");
       if (toast) {
         toast.classList.remove("hidden");
-        setTimeout(() => toast.classList.add("hidden"), 4500);
+        setTimeout(() => toast.classList.add("hidden"), 4000);
       }
     });
   }
 }
 
 /**
- * Renders all interactive sections
+ * Renders all sections
  */
 function renderAll() {
   renderPresets();
@@ -945,7 +942,7 @@ function renderAll() {
   renderSummary();
 }
 
-// Initialize on DOM ready
+// Initialization on DOM ready
 document.addEventListener("DOMContentLoaded", () => {
   renderAll();
   renderFutureRoadmap();

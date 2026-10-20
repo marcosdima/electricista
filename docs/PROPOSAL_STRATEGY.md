@@ -9,7 +9,6 @@ This document provides the internal engineering justification, hour breakdowns, 
 - **Hourly Rate Reference:** `$15 USD / hr`
 - **Exchange Rate Reference:** `$1,500 ARS / USD`
 - **ARS Hourly Rate:** `$22,500 ARS / hr`
-- **Bundle Incentive:** `10% discount` on development modules when combining 2 or more modules (encourages upselling from Web-only to Web + WhatsApp Bot).
 
 ---
 

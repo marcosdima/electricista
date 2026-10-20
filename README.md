@@ -32,7 +32,6 @@ All pricing is dynamically calculated from a single source of truth in [`js/conf
 - **Reference Hourly Rate:** `$15 USD / hour`
 - **Default Exchange Rate:** `$1,500 ARS / USD`
 - **Effective Hourly Rate:** `$22,500 ARS / hour`
-- **Bundle Discount:** `10%` automatically applied when the client selects 2 or more development modules.
 
 ### How to Update Prices or Client Details
 
@@ -47,7 +46,6 @@ meta: {
 pricing: {
   hourlyRateUSD: 15,
   exchangeRateARS: 1500, // Change this single number to update all ARS prices
-  bundleDiscountPercent: 10,
 }
 ```
 

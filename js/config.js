@@ -1,7 +1,7 @@
 /**
  * Central Configuration for the Electrician Freelance Proposal
  * All code and documentation are in English.
- * All client-facing text strings are in Spanish (Argentina).
+ * All client-facing text strings are in Spanish (Argentina), written in first-person singular.
  */
 
 const PROPOSAL_CONFIG = {
@@ -12,28 +12,26 @@ const PROPOSAL_CONFIG = {
     proposalDate: "Octubre 2026",
     validityDays: 15,
     freelancerName: "Marcos Dima",
-    // Leave empty or add your WhatsApp number (e.g., "5491112345678") for the CTA button
     freelancerWhatsApp: "",
   },
 
   // Base pricing parameters (Internal reference: $15 USD/hr @ $1,500 ARS/USD = $22,500 ARS/hr)
-  // Note: Only ARS values are displayed to the client in the UI.
+  // Only clean ARS values are presented to the client without artificial discounts.
   pricing: {
     hourlyRateUSD: 15,
     exchangeRateARS: 1500,
     get hourlyRateARS() {
       return this.hourlyRateUSD * this.exchangeRateARS; // $22,500 ARS/hr
     },
-    bundleDiscountPercent: 10, // Applied when selecting 2 or more development modules
   },
 
-  // Quick preset combinations for the client to test with 1 click
+  // Presets without marketing gimmicks or fake discounts
   presets: [
     {
       id: "preset-basic",
       name: "Opción 1: Presencia Web Esencial",
-      badge: "Ideal para empezar",
-      description: "Página web estática rápida + perfil en Google Maps + dominio .com.ar propio y sin costos fijos mensuales.",
+      badge: "Base Inicial",
+      description: "Página web estática rápida + ficha en Google Maps + dominio propio .com.ar sin costos mensuales de mantenimiento.",
       modules: ["web-static"],
       domain: "domain-com-ar",
       management: "mgmt-self",
@@ -42,8 +40,8 @@ const PROPOSAL_CONFIG = {
     {
       id: "preset-recommended",
       name: "Opción 2: Web + Bot de WhatsApp",
-      badge: "Más elegido",
-      description: "Tu página web trabajando en equipo con un asistente automático de WhatsApp que filtra urgencias y pide fotos del problema mientras estás trabajando.",
+      badge: "Recomendado",
+      description: "Página web conectada a un asistente automático de WhatsApp que filtra urgencias y solicita fotos del problema técnico mientras estás en obra.",
       modules: ["web-static", "whatsapp-bot"],
       domain: "domain-com-ar",
       management: "mgmt-bot-cloud",
@@ -51,9 +49,9 @@ const PROPOSAL_CONFIG = {
     },
     {
       id: "preset-full",
-      name: "Opción 3: Crecimiento Digital + Redes",
-      badge: "Todo incluido",
-      description: "Web profesional + Bot de WhatsApp 24/7 + Kit de plantillas y automatización para publicar trabajos en Instagram sin perder tiempo.",
+      name: "Opción 3: Web + Bot + Gestión de Redes",
+      badge: "Completo",
+      description: "Página web, asistente de WhatsApp 24/7 y gestión activa de publicaciones en redes sociales para mostrar tus trabajos de forma continua.",
       modules: ["web-static", "whatsapp-bot", "social-setup"],
       domain: "domain-com-ar",
       management: "mgmt-bot-cloud",
@@ -61,239 +59,234 @@ const PROPOSAL_CONFIG = {
     },
   ],
 
-  // One-time development modules (calculated dynamically from hours * hourlyRateARS)
+  // One-time development modules
   developmentModules: [
     {
       id: "web-static",
       title: "Página Web Estática + Google Maps",
-      subtitle: "Tu vidriera profesional online las 24 hs",
+      subtitle: "Presencia profesional y ubicación en búsquedas locales",
       icon: "globe",
-      hours: 14, // 14h * $22,500 = $315,000 ARS
+      hours: 14,
       deliveryTime: "5 a 7 días hábiles",
-      recommended: true,
       defaultSelected: true,
       summary:
-        "Una página web rápida, moderna y adaptada a celulares para que los clientes de tu zona te encuentren en Google, vean tus trabajos reales y te contacten con un toque.",
+        "Una página web rápida y optimizada para celulares para que los clientes de tu zona encuentren tus servicios en Google, vean fotos de tus trabajos y se contacten directamente por WhatsApp.",
       features: [
-        "Diseño adaptable a celulares y computadoras (Mobile-First).",
-        "Botones directos a WhatsApp diferenciados: 'Urgencia 24hs' vs 'Pedir Presupuesto'.",
-        "Catálogo claro de servicios (Urgencias, Instalaciones, Tableros, Certificaciones/Mediciones).",
-        "Galería de fotos 'Antes y Después' de trabajos realizados y sellos de confianza (Matrícula/Garantía).",
-        "Mapa de zonas de cobertura y sección de preguntas frecuentes.",
-        "Alta y optimización de Google Business Profile (para aparecer en Google Maps cuando busquen 'electricista cerca').",
+        "Diseño adaptable para celulares y computadoras.",
+        "Botones directos de WhatsApp diferenciados por tipo de consulta.",
+        "Detalle claro de servicios (Urgencias, Instalaciones, Tableros, Certificaciones).",
+        "Galería de fotos de trabajos realizados y datos de matrícula profesional.",
+        "Mapa con zonas de cobertura y preguntas frecuentes de clientes.",
+        "Configuración y optimización de ficha en Google Maps (Google Business Profile).",
       ],
-      techNote: "Alojada en servidores globales gratuitos (GitHub Pages / Cloudflare). No paga alquiler de hosting web.",
+      techNote: "Alojada en infraestructura gratuita de alta velocidad (GitHub Pages / Cloudflare). No genera costo fijo de hosting.",
     },
     {
       id: "whatsapp-bot",
-      title: "Asistente Automático de WhatsApp (Bot 24/7)",
-      subtitle: "Atendé consultas y filtrá urgencias mientras estás en obra",
-      icon: "message-circle",
-      hours: 16, // 16h * $22,500 = $360,000 ARS
+      title: "Asistente Automático de WhatsApp (24/7)",
+      subtitle: "Filtro de consultas y recepción de datos mientras estás trabajando",
+      icon: "message-square",
+      hours: 16,
       deliveryTime: "7 a 10 días hábiles",
-      recommended: true,
       defaultSelected: false,
       summary:
-        "Cuando estás arriba de una escalera o revisando un tablero no podés responder mensajes. El bot responde al instante, clasifica al cliente y te deja todo listo para presupuestar.",
+        "Responde de forma inmediata a los mensajes entrantes, clasifica el tipo de consulta y solicita la ubicación y fotos del tablero o desperfecto antes de que tomes contacto.",
       features: [
-        "Menú interactivo automático: 1) Urgencia Eléctrica, 2) Solicitar Presupuesto, 3) Zonas y Horarios.",
-        "Recolección inteligente de datos: pide barrio/ubicación, descripción de la falla y foto o video del tablero/enchufe.",
-        "Filtro de Urgencias: si el cliente indica una emergencia en tu zona, te envía una alerta prioritaria o habilita llamada directa.",
-        "Registro automático en planilla (Google Sheets): guarda nombre, teléfono, barrio, problema y fecha para que ningún cliente quede sin respuesta.",
-        "Respuestas automáticas a consultas repetitivas (costo de visita técnica, medios de pago, zonas de trabajo).",
+        "Menú de opciones: Urgencia eléctrica, Solicitud de presupuesto o Consulta de zonas y tarifas de visita.",
+        "Solicitud automática de datos: barrio o dirección, descripción del problema y foto del tablero o instalación.",
+        "Priorización de urgencias: notificación prioritaria o llamada directa cuando un cliente se queda sin suministro.",
+        "Registro ordenado en planilla (Google Sheets) con el detalle de cada contacto para seguimiento.",
+        "Respuestas predefinidas a preguntas frecuentes de clientes.",
       ],
-      techNote: "Se puede configurar con flujo guiado en la nube o conectado a tu número comercial.",
+      techNote: "Implementado con integración en la nube para funcionamiento continuo e independiente de tu teléfono personal.",
     },
     {
       id: "social-setup",
-      title: "Kit Inicial de Redes + Automatización 'Foto a Post'",
-      subtitle: "Identidad visual profesional y publicaciones sin esfuerzo",
+      title: "Kit Inicial de Redes Sociales + Automatización",
+      subtitle: "Estructura profesional de perfiles y formato para publicar trabajos",
       icon: "instagram",
-      hours: 10, // 10h * $22,500 = $225,000 ARS
+      hours: 10,
       deliveryTime: "5 a 7 días hábiles",
-      recommended: false,
       defaultSelected: false,
       summary:
-        "Ideal si querés mover Instagram y Facebook mostrando tus trabajos pero no tenés tiempo de diseñar ni redactar textos después de trabajar.",
+        "Configuración estética y funcional de tus perfiles comerciales en Instagram y Facebook, junto con un sistema ágil para redactar publicaciones a partir de las fotos que tomás en obra.",
       features: [
-        "Optimización completa de biografía de Instagram y Facebook (botones de contacto, historias destacadas de 'Urgencias', 'Trabajos', 'Reseñas').",
-        "Pack de 6 plantillas editables con tu marca (Antes/Después, Consejos de Seguridad Eléctrica, Testimonios).",
-        "Automatización 'De la Obra a Instagram': enviás una foto del trabajo terminado + un audio corto por WhatsApp/Telegram contando qué hiciste, y el sistema te devuelve el texto redactado listo para publicar.",
-        "Guía rápida de contenido: qué sacarle foto en cada trabajo para generar confianza y atraer mejores clientes.",
+        "Optimización de biografías y portadas en Instagram y Facebook.",
+        "Portadas para historias destacadas (Urgencias, Obras, Opiniones, Contacto).",
+        "Pack de 6 plantillas de diseño reutilizables con tus colores y datos.",
+        "Flujo asistido de publicación: enviás la foto de un trabajo con un breve audio descriptivo y recibís el texto formal listo para publicar.",
+        "Guía de buenas prácticas para fotografiar instalaciones y tableros.",
       ],
-      techNote: "Pago único de configuración inicial. Podés manejarlo vos mismo o sumarle un plan de gestión mensual.",
+      techNote: "Servicio de configuración inicial por única vez. Puede utilizarse de forma autónoma o con abono mensual de gestión.",
     },
   ],
 
-  // Domain / URL Licensing Options (Fixed ARS reference values)
+  // Domain / URL Licensing Options
   domainOptions: [
     {
       id: "domain-free",
       title: "Subdominio Gratuito (.github.io / .vercel.app)",
-      badge: "Costo $0",
+      badge: "Sin costo",
       setupHours: 0,
       annualLicenseARS: 0,
       description:
-        "Tu página tendrá una dirección del estilo 'tunombre-electricista.github.io'. Es 100% gratuito de por vida y sirve perfecto para compartir en tu perfil de Instagram, estados de WhatsApp o código QR en tarjetas.",
-      pros: ["Sin costo anual de renovación", "Activación inmediata", "Certificado de seguridad SSL (candadito) incluido"],
-      cons: ["Dirección menos fácil de recordar de memoria", "Menor posicionamiento en buscadores frente a un .com.ar"],
+        "Dirección del tipo 'tunombre-electricista.github.io'. No tiene costo inicial ni de mantenimiento. Es adecuada para compartir como enlace en perfiles de redes, estados de WhatsApp o códigos QR.",
+      pros: ["Sin costo de renovación anual", "Habilitación inmediata", "Certificado de seguridad SSL incluido"],
+      cons: ["Nombre más extenso para recordar verbalmente", "Menor presencia frente a un dominio .com.ar propio"],
     },
     {
       id: "domain-com-ar",
       title: "Dominio Propio Nacional (.com.ar - NIC Argentina)",
-      badge: "Recomendado en Argentina",
-      setupHours: 2, // 2h setup & DNS + NIC.ar Trámites a Distancia guidance = $45,000 ARS one-time setup
-      annualLicenseARS: 8500, // Official NIC.ar annual fee reference (~$8.500 ARS/year)
+      badge: "Recomendado",
+      setupHours: 2,
+      annualLicenseARS: 8500,
       defaultSelected: true,
       description:
-        "Tu propia dirección oficial en Argentina (ej: ' www.electricistaperez.com.ar '). Se registra en NIC Argentina (a través de ARCA/AFIP y Trámites a Distancia) a tu nombre para que seas el único dueño.",
+        "Dirección oficial en Argentina registrada a tu nombre (por ejemplo: 'www.electricistaperez.com.ar'). El registro se realiza directamente en NIC Argentina mediante Trámites a Distancia (TAD) con Clave Fiscal.",
       pros: [
-        "Transmite máxima seriedad y confianza local",
-        "Licencia anual oficial muy económica en pesos (se abona 1 vez al año a NIC.ar)",
-        "Incluye configuración completa de DNS y redirección segura",
+        "Identidad profesional y mayor confianza en búsquedas locales",
+        "Titularidad 100% a tu nombre",
+        "Costo anual oficial en pesos abonado una sola vez por año",
       ],
-      cons: ["Requiere clave fiscal nivel 2 o superior para titularidad propia (te guiamos paso a paso o lo gestionamos por vos)"],
+      cons: ["Requiere validación de CUIT / Clave Fiscal (te asisto en el proceso de alta y delegación)"],
     },
     {
       id: "domain-com",
       title: "Dominio Internacional (.com)",
-      badge: "Alternativa rápida",
-      setupHours: 1.5, // 1.5h setup = $33,750 ARS one-time setup
-      annualLicenseARS: 22000, // ~ $14-15 USD/year in ARS
+      badge: "Internacional",
+      setupHours: 1.5,
+      annualLicenseARS: 22000,
       description:
-        "Dirección internacional (ej: ' www.electricistaperez.com '). No requiere trámites en AFIP/NIC.ar y queda activo en 15 minutos, aunque su renovación anual es más cara que el .com.ar.",
-      pros: ["Activación en minutos sin trámites en ARCA/AFIP", "Reconocimiento global"],
-      cons: ["Renovación anual atada a proveedores internacionales (~$22.000 ARS/año)"],
+        "Dirección global (por ejemplo: 'www.electricistaperez.com'). La activación es inmediata sin requerir gestiones ante organismos fiscales locales.",
+      pros: ["Activación directa en pocos minutos", "Reconocimiento estándar internacional"],
+      cons: ["Costo de renovación anual superior al dominio nacional"],
     },
   ],
 
-  // Technical Management & Infrastructure Options (How the site & bot are maintained)
+  // Technical Management & Maintenance
   managementOptions: [
     {
       id: "mgmt-self",
       title: "Autogestión (Sin Abono Mensual)",
-      badge: "$0 / mes",
+      badge: "Sin abono",
       monthlyARS: 0,
       defaultSelected: true,
-      forBotCompatible: false,
       description:
-        "Entregamos la página web terminada y funcionando en servidores gratuitos. Si necesitás cambiar un teléfono, agregar fotos nuevas o modificar textos más adelante, nos pedís el cambio puntual por hora o lo editás con una guía simple.",
+        "Entrego el sitio web publicado y funcionando en servidores gratuitos sin cargos mensuales. Si en el futuro necesitás actualizar fotos, precios o datos de contacto, me solicitás el ajuste puntual por hora de trabajo.",
       includes: [
-        "Hosting web estático 100% gratuito",
-        "Manual breve de uso y entrega de accesos",
-        "Cambios futuros a demanda (solo pagás cuando necesitás actualizar algo)",
+        "Hosting estático sin cargo mensual",
+        "Entrega de accesos y manual básico de consulta",
+        "Soporte y modificaciones futuras a demanda (cotizadas por hora)",
       ],
     },
     {
       id: "mgmt-web-care",
-      title: "Mantenimiento Web & Soporte Activo",
-      badge: "Tranquilidad total",
-      monthlyARS: 35000, // ~1.5h/month equivalent
-      forBotCompatible: false,
+      title: "Mantenimiento Web y Soporte Activo",
+      badge: "Mantenimiento",
+      monthlyARS: 35000,
       description:
-        "Nos ocupamos de mantener tu web siempre actualizada: nos mandás por WhatsApp fotos de tus últimos trabajos cada mes y nosotros las subimos a la galería, actualizamos precios o zonas y cuidamos tu ficha de Google Maps.",
+        "Me ocupo de mantener tu sitio web actualizado de forma continua: me enviás fotos de tus nuevos trabajos por WhatsApp y me encargo de subirlas a la galería, actualizar tarifas de visita y mantener activa tu ficha en Google Maps.",
       includes: [
-        "Hasta 2 actualizaciones mensuales de contenido (fotos de obras, precios, textos)",
-        "Gestión de vencimiento de dominio (.com.ar / .com)",
-        "Actualización de fotos en tu perfil de Google Maps",
-        "Soporte prioritario por WhatsApp",
+        "Hasta 2 actualizaciones de contenido por mes (fotografías, tarifas, zonas)",
+        "Control de vencimiento y renovación de dominio",
+        "Carga periódica de imágenes en tu ficha de Google Maps",
+        "Atención prioritaria ante dudas o modificaciones",
       ],
     },
     {
       id: "mgmt-bot-cloud",
-      title: "Servidor Bot WhatsApp 24/7 + Mantenimiento Web",
-      badge: "Ideal con Bot",
-      monthlyARS: 55000, // ~2.5h/month equivalent (includes bot uptime/hosting & adjustments)
-      forBotCompatible: true,
+      title: "Servidor Cloud para Bot 24/7 + Mantenimiento Web",
+      badge: "Soporte Completo",
+      monthlyARS: 55000,
       description:
-        "Mantiene activo el servidor del Bot de WhatsApp las 24 hs, supervisa la conexión, actualiza precios de visita/urgencia cuando haya inflación y suma actualizaciones mensuales en tu página web.",
+        "Mantengo en funcionamiento el servidor en la nube que gestiona el bot de WhatsApp las 24 horas, superviso la estabilidad de la conexión y me ocupo de los ajustes mensuales en respuestas, tarifas y contenido del sitio web.",
       includes: [
-        "Servidor activo 24/7 para el asistente de WhatsApp y planilla de clientes",
-        "Ajustes mensuales en las respuestas del bot (tarifas de visita, zonas, horarios)",
-        "Actualización mensual de fotos de trabajos en la página web",
-        "Monitoreo técnico y soporte ante desconexiones",
+        "Disponibilidad 24/7 del asistente de WhatsApp y registro en planilla",
+        "Ajustes periódicos en las respuestas del bot (precios de visita, horarios, zonas)",
+        "Actualizaciones de fotos y textos en la página web",
+        "Monitoreo técnico de conectividad y soporte directo",
       ],
     },
   ],
 
-  // Social Media Ongoing Management Options (Monthly Retainers)
+  // Social Media Ongoing Retainers
   socialMonthlyOptions: [
     {
       id: "social-none",
-      title: "Sin Gestión Mensual de Redes (Lo manejo yo)",
-      badge: "$0 / mes",
+      title: "Sin Gestión Mensual (Administración Propia)",
+      badge: "Sin abono",
       monthlyARS: 0,
       defaultSelected: true,
       description:
-        "Publicás a tu propio ritmo. Si elegiste el 'Kit Inicial de Redes', usás las plantillas y el asistente automático para armar tus posteos cuando quieras sin pagar abono mensual.",
-      includes: ["Control 100% por tu cuenta", "Sin compromiso mensual"],
+        "Gestionás las publicaciones por tu cuenta según tu disponibilidad, utilizando las plantillas y el sistema de redacción asistida sin costo mensual.",
+      includes: ["Manejo autónomo de tus redes", "Sin compromisos mensuales de pago"],
     },
     {
       id: "social-basic",
-      title: "Plan Presencia Activa (4 Publicaciones + 8 Historias / mes)",
-      badge: "1 vez por semana",
-      monthlyARS: 90000, // 4h/month * $22,500 ARS
+      title: "Plan Publicación Semanal (4 posteos + 8 historias por mes)",
+      badge: "Semanal",
+      monthlyARS: 90000,
       description:
-        "Vos solo nos mandás por WhatsApp fotos o videos cortos de los trabajos que vas haciendo en la semana. Nosotros los editamos, aplicamos tu marca, redactamos los textos y los publicamos por vos.",
+        "Solo me enviás fotos o videos breves de tus trabajos en la semana por WhatsApp. Me encargo de editarlos, redactar los textos técnicos en tono accesible y programar las publicaciones.",
       includes: [
-        "1 publicación semanal en el Feed / Reel corto (4 al mes)",
-        "2 secuencias de Historias por semana (8 al mes) para mantener la cuenta activa",
-        "Diseño gráfico sobre tus fotos reales de obra",
-        "Redacción persuasiva enfocada en conseguir clientes en tu zona",
+        "1 publicación semanal en formato feed o video breve (4 por mes)",
+        "2 historias semanales de seguimiento (8 por mes)",
+        "Edición gráfica sobre imágenes reales de tus trabajos",
+        "Redacción orientada a destacar profesionalismo y seguridad",
       ],
     },
     {
       id: "social-pro",
-      title: "Plan Crecimiento Local (8 Publicaciones + 16 Historias + Google Maps)",
-      badge: "2 veces por semana",
-      monthlyARS: 157500, // 7h/month * $22,500 ARS
+      title: "Plan Crecimiento Local (8 posteos + 16 historias + Google Maps)",
+      badge: "Bisemanal",
+      monthlyARS: 157500,
       description:
-        "Para posicionarte como el electricista referente de tu zona. Publicamos dos veces por semana en Instagram/Facebook y además subimos novedades a tu ficha de Google Maps para aparecer más arriba en las búsquedas.",
+        "Dos publicaciones semanales en Instagram y Facebook, más actualización periódica de novedades en Google Maps para reforzar tu presencia en búsquedas de la zona.",
       includes: [
-        "2 publicaciones semanales (Reels de trabajos, carruseles de consejos, antes/después)",
-        "Historias constantes con botones de contacto rápido",
-        "Publicación mensual de fotos y novedades en Google Business Profile (Google Maps)",
-        "Asesoramiento para campañas publicitarias locales (Meta Ads / Google) si deseás invertir en anuncios",
+        "2 publicaciones semanales con trabajos realizados y recomendaciones técnicas",
+        "Historias continuas con enlace directo a WhatsApp",
+        "Publicación mensual de trabajos y avisos en Google Maps",
+        "Configuración de anuncios locales si decidís invertir en publicidad",
       ],
     },
   ],
 
-  // Future Roadmap / Unpriced Phase 2 Ideas (Tier 3 discarded from current budget, presented as future possibilities)
+  // Future Roadmap / Non-Budgeted Phase 2 Ideas
   futureRoadmap: [
     {
-      title: "Pre-Presupuestador Interactivo en la Web",
-      tag: "Ahorro de tiempo",
+      title: "Calculadora Web de Pre-Presupuesto",
+      tag: "Cotización",
       icon: "calculator",
       description:
-        "Una calculadora simple en tu página donde el cliente selecciona qué necesita (ej: colocar 3 tomas, cambiar disyuntor, instalar ventilador de techo) y ve un rango estimado antes de escribirte. Filtra curiosos y te llegan clientes listos para contratar.",
+        "Un estimador en tu sitio donde el cliente selecciona los trabajos frecuentes (cambio de térmicas, instalación de tomas, colocación de artefactos) y obtiene un rango de referencia antes de contactarte.",
     },
     {
-      title: "Generador de Presupuestos PDF en 60 Segundos",
-      tag: "Imagen Profesional",
+      title: "Generador Ágil de Presupuestos en PDF",
+      tag: "Herramienta",
       icon: "file-text",
       description:
-        "Una herramienta privada en tu celular donde cargás el nombre del cliente, los materiales y la mano de obra desde la obra, y te genera al instante un PDF membretado con validez de días y garantía, listo para reenviar por WhatsApp.",
+        "Un formulario ágil en el celular para cargar materiales y mano de obra al terminar una visita técnica, generando un presupuesto formal con membrete y validez en formato PDF.",
     },
     {
-      title: "Agenda Online de Visitas Técnicas",
+      title: "Agenda de Turnos para Trabajos Programados",
       tag: "Organización",
       icon: "calendar",
       description:
-        "Integración con el calendario de tu celular para que los trabajos que no son urgencias puedan elegir un día y franja horaria disponible sin idas y vueltas de mensajes.",
+        "Integración con calendario para que visitas no urgentes puedan coordinar día y franja horaria disponible sin intercambios prolongados de mensajes.",
     },
     {
-      title: "Recolector Automático de Reseñas 5 Estrellas",
-      tag: "Más Clientes en Google",
+      title: "Solicitud Automática de Reseñas en Google",
+      tag: "Reputación",
       icon: "star",
       description:
-        "Al día siguiente de terminar un trabajo, el sistema le envía un mensaje amable al cliente agradeciéndole y dejándole el link directo para calificar tu servicio en Google Maps. Cuantas más reseñas tenés, más arriba aparecés gratis.",
+        "Envío programado de un mensaje de cortesía al día siguiente de finalizar un trabajo, facilitando el enlace directo para calificar tu servicio en Google Maps.",
     },
     {
-      title: "Recordatorios de Mantenimiento (Consorcios y Comercios)",
-      tag: "Ingresos Recurrentes",
+      title: "Recordatorios de Mantenimiento Periódico",
+      tag: "Fidelización",
       icon: "bell",
       description:
-        "Avisos automáticos cada 6 o 12 meses a locales comerciales, oficinas o consorcios que ya atendiste para recordarles el control de luces de emergencia, medición de puesta a tierra o revisión de tableros.",
+        "Avisos periódicos a comercios o administraciones de consorcios para revisiones de puesta a tierra, tableros o iluminación de emergencia.",
     },
   ],
 };
