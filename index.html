@@ -210,24 +210,16 @@
             <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">
               Seleccioná un caso de prueba:
             </div>
-            <div class="flex items-stretch gap-2 no-print">
-              <button
-                type="button"
-                onclick="moveDemoCarousel(-1)"
-                class="demo-carousel-nav"
-                aria-label="Caso anterior"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <div class="demo-carousel-track flex-1">
-                <div class="flex gap-2 min-w-max">
+            <div class="no-print">
+              <div id="demo-carousel-track" class="demo-carousel-track">
+                <div class="flex gap-2">
                   <button
                     type="button"
                     data-scenario="emergency"
                     onclick="switchDemoScenario('emergency')"
                     class="demo-tab-btn"
                   >
-                    <span class="relative z-10">1. Urgencia Técnica</span>
+                    <span class="relative z-10 block truncate">1. Urgencia Técnica</span>
                     <span class="demo-tab-progress"><span class="demo-tab-progress-fill"></span></span>
                   </button>
                   <button
@@ -236,7 +228,7 @@
                     onclick="switchDemoScenario('quote')"
                     class="demo-tab-btn"
                   >
-                    <span class="relative z-10">2. Presupuesto</span>
+                    <span class="relative z-10 block truncate">2. Presupuesto</span>
                     <span class="demo-tab-progress"><span class="demo-tab-progress-fill"></span></span>
                   </button>
                   <button
@@ -245,7 +237,7 @@
                     onclick="switchDemoScenario('social')"
                     class="demo-tab-btn"
                   >
-                    <span class="relative z-10">3. Redacción Redes</span>
+                    <span class="relative z-10 block truncate">3. Redacción Redes</span>
                     <span class="demo-tab-progress"><span class="demo-tab-progress-fill"></span></span>
                   </button>
                   <button
@@ -254,19 +246,11 @@
                     onclick="switchDemoScenario('presupuestador')"
                     class="demo-tab-btn"
                   >
-                    <span class="relative z-10">4. Presupuesto PDF</span>
+                    <span class="relative z-10 block truncate">4. Presupuesto PDF</span>
                     <span class="demo-tab-progress"><span class="demo-tab-progress-fill"></span></span>
                   </button>
                 </div>
               </div>
-              <button
-                type="button"
-                onclick="moveDemoCarousel(1)"
-                class="demo-carousel-nav"
-                aria-label="Caso siguiente"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
             </div>
           </div>
 

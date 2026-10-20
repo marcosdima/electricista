@@ -45,6 +45,11 @@ body {
   border-color: #d97706;
   background-color: #fffdf5;
   box-shadow: 0 8px 24px -4px rgba(217, 119, 6, 0.16), 0 0 0 1.5px #d97706;
+}
+
+/* One-shot pop, applied only to the card the user just clicked so that
+   re-rendering other (already selected) cards never restarts it. */
+.selectable-card.just-selected {
   animation: selectPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -127,6 +132,9 @@ body {
   background-color: #f1ede6;
   background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 0);
   background-size: 16px 16px;
+  /* Keep chat resets instant instead of inheriting the page's smooth scroll,
+     which made the simulator jump to the end when switching scenarios. */
+  scroll-behavior: auto;
 }
 
 .wa-bubble-bot {
@@ -159,41 +167,16 @@ body {
 
 /* Demo scenario carousel */
 .demo-carousel-track {
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.demo-carousel-track::-webkit-scrollbar {
-  display: none;
-}
-
-.demo-carousel-nav {
-  flex-shrink: 0;
-  align-self: center;
-  width: 2.25rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
-  background: #ffffff;
-  color: #475569;
-  transition: all 0.2s ease;
-}
-
-.demo-carousel-nav:hover {
-  border-color: #d97706;
-  color: #b45309;
-  background: #fffdf5;
+  overflow-x: hidden;
 }
 
 .demo-tab-btn {
   position: relative;
   overflow: hidden;
   white-space: nowrap;
+  flex: 1 1 0;
+  min-width: 0;
+  text-overflow: ellipsis;
 }
 
 .demo-tab-progress {

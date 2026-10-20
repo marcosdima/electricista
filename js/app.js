@@ -27,7 +27,32 @@ const state = {
     "social-none",
   activeDemoScenario: "emergency",
   demoTimers: [],
+  justSelected: null,
 };
+
+/**
+ * Marks the element the user just clicked so its pop animation plays once.
+ * Any other already-selected card will NOT re-animate when re-rendered.
+ * @param {string} id
+ */
+function markJustSelected(id) {
+  state.justSelected = id;
+}
+
+/**
+ * Builds the selection class for a card. The one-shot `just-selected` class is
+ * only applied to the card the user just interacted with; consumed on read so
+ * subsequent re-renders stay static.
+ * @param {boolean} isSelected
+ * @param {string} id
+ * @returns {string}
+ */
+function selectionClass(isSelected, id) {
+  if (!isSelected) return "border-slate-200";
+  const isJust = state.justSelected === id;
+  if (isJust) state.justSelected = null;
+  return isJust ? "is-selected just-selected" : "is-selected";
+}
 
 // Display order of the demo scenarios in the carousel
 const DEMO_SCENARIO_ORDER = [
@@ -138,6 +163,7 @@ function toggleModule(moduleId) {
   } else {
     state.selectedModules.add(moduleId);
   }
+  markJustSelected(moduleId);
   renderAll();
   animateValueUpdates();
 }
@@ -152,6 +178,7 @@ function toggleExtra(extraId) {
   } else {
     state.selectedExtras.add(extraId);
   }
+  markJustSelected(extraId);
   renderAll();
   animateValueUpdates();
 }
@@ -162,6 +189,7 @@ function toggleExtra(extraId) {
  */
 function selectDomain(domainId) {
   state.selectedDomainId = domainId;
+  markJustSelected(domainId);
   renderAll();
   animateValueUpdates();
 }
@@ -174,6 +202,7 @@ function selectManagement(mgmtId) {
   const mgmt = PROPOSAL_CONFIG.managementOptions.find((m) => m.id === mgmtId);
   if (mgmt && isManagementLocked(mgmt)) return;
   state.selectedManagementId = mgmtId;
+  markJustSelected(mgmtId);
   renderAll();
   animateValueUpdates();
 }
@@ -195,6 +224,7 @@ function isManagementLocked(mgmt) {
  */
 function selectSocial(socialId) {
   state.selectedSocialId = socialId;
+  markJustSelected(socialId);
   renderAll();
   animateValueUpdates();
 }
@@ -217,7 +247,7 @@ function renderDevelopmentModules() {
           onclick="toggleModule('${mod.id}')"
           class="selectable-card rounded-2xl border p-6 bg-white ${
             isLocked ? "cursor-not-allowed is-locked" : "cursor-pointer"
-          } ${isSelected ? "is-selected" : "border-slate-200"} ${
+          } ${selectionClass(isSelected, mod.id)} ${
         isLocked && !isSelected ? "opacity-70" : ""
       }"
         >
@@ -309,7 +339,7 @@ function renderExtraModules() {
         <div
           onclick="toggleExtra('${extra.id}')"
           class="selectable-card cursor-pointer rounded-2xl border p-5 bg-white flex flex-col justify-between ${
-            isSelected ? "is-selected" : "border-slate-200"
+            selectionClass(isSelected, extra.id)
           }"
         >
           <div>
@@ -385,7 +415,7 @@ function renderDomainOptions() {
         <div
           onclick="selectDomain('${dom.id}')"
           class="selectable-card cursor-pointer rounded-2xl border p-5 bg-white flex flex-col justify-between ${
-            isSelected ? "is-selected" : "border-slate-200"
+            selectionClass(isSelected, dom.id)
           }"
         >
           <div>
@@ -481,7 +511,7 @@ function renderManagementOptions() {
           onclick="selectManagement('${mgmt.id}')"
           class="selectable-card rounded-2xl border p-5 bg-white flex flex-col justify-between ${
             isLocked ? "cursor-not-allowed" : "cursor-pointer"
-          } ${isSelected ? "is-selected" : "border-slate-200"} ${
+          } ${selectionClass(isSelected, mgmt.id)} ${
         isLocked && !isSelected ? "opacity-70" : ""
       }"
         >
@@ -569,7 +599,7 @@ function renderSocialOptions() {
         <div
           onclick="selectSocial('${soc.id}')"
           class="selectable-card cursor-pointer rounded-2xl border p-5 bg-white flex flex-col ${
-            isSelected ? "is-selected" : "border-slate-200"
+            selectionClass(isSelected, soc.id)
           }"
         >
           <div>
@@ -829,13 +859,24 @@ function scheduleDemoStep(fn, delay) {
 }
 
 /**
+ * Returns the demo scenario chips, scoped to the carousel track only so the
+ * demo logic can never touch nodes in other sections.
+ * @returns {Array<HTMLElement>}
+ */
+function getDemoChips() {
+  const track = document.getElementById("demo-carousel-track");
+  if (!track || !track.querySelectorAll) return [];
+  return Array.prototype.slice.call(track.querySelectorAll(".demo-tab-btn"));
+}
+
+/**
  * Animates the progress bar inside the selected scenario chip while the
  * content loads progressively. Resets the other chips to zero.
  * @param {string} scenarioKey
  * @param {number} durationMs
  */
 function startChipProgress(scenarioKey, durationMs) {
-  document.querySelectorAll(".demo-tab-btn").forEach((btn) => {
+  getDemoChips().forEach((btn) => {
     const fill = btn.querySelector
       ? btn.querySelector(".demo-tab-progress-fill")
       : null;
@@ -871,15 +912,17 @@ function moveDemoCarousel(dir) {
 /**
  * Switches the Demo Scenario in the simulator as a carousel: the selected
  * chip shows a progressive load bar while content appears step by step.
+ * Only the demo carousel and chat are touched; no other section re-renders
+ * or re-animates, and the page never scrolls.
  * @param {string} scenarioKey
  */
 function switchDemoScenario(scenarioKey) {
   state.activeDemoScenario = scenarioKey;
   clearDemoTimers();
 
-  document.querySelectorAll(".demo-tab-btn").forEach((btn) => {
+  getDemoChips().forEach((btn) => {
     const isCurrent = btn.getAttribute("data-scenario") === scenarioKey;
-    btn.className = `demo-tab-btn text-left px-3.5 py-2.5 rounded-xl border text-xs sm:text-sm font-medium transition-all ${
+    btn.className = `demo-tab-btn text-center px-2.5 py-2.5 rounded-xl border text-[11px] sm:text-xs font-medium transition-all ${
       isCurrent
         ? "bg-slate-900 text-white border-amber-600 shadow-sm"
         : "bg-white text-slate-700 border-slate-200 hover:border-slate-400"
@@ -891,14 +934,6 @@ function switchDemoScenario(scenarioKey) {
     if (fill && fill.style) {
       fill.style.transition = "none";
       fill.style.width = "0%";
-    }
-
-    if (isCurrent && btn.scrollIntoView) {
-      btn.scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest",
-      });
     }
   });
 
@@ -1070,6 +1105,7 @@ function switchDemoScenario(scenarioKey) {
   if (chatEl) {
     if (current.type === "document") {
       chatEl.innerHTML = current.documentHtml;
+      chatEl.scrollTop = 0;
 
       // Progressive reveal: the document sections appear one after another
       const doc = chatEl.firstElementChild || null;
@@ -1082,7 +1118,6 @@ function switchDemoScenario(scenarioKey) {
       stages.forEach((stage, i) => {
         scheduleDemoStep(() => {
           stage.style.opacity = "1";
-          chatEl.scrollTop = chatEl.scrollHeight;
         }, 150 + i * perStageMs);
       });
       startChipProgress(
@@ -1112,6 +1147,9 @@ function switchDemoScenario(scenarioKey) {
       )
       .join("");
 
+    // Start from the top so the first messages are visible as they appear.
+    chatEl.scrollTop = 0;
+
     const bubbles =
       chatEl.querySelectorAll && chatEl.querySelectorAll(".demo-msg");
     const perMsgMs = 450;
@@ -1120,7 +1158,6 @@ function switchDemoScenario(scenarioKey) {
       scheduleDemoStep(() => {
         const bubble = bubbles ? bubbles[i] : null;
         if (bubble) bubble.classList.remove("opacity-0");
-        chatEl.scrollTop = chatEl.scrollHeight;
       }, 200 + i * perMsgMs);
     });
 
